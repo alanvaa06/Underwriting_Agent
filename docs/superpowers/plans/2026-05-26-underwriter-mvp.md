@@ -2643,7 +2643,7 @@ git push origin main
 - Create: `underwriter/streaming.py`
 - Create: `tests/test_streaming.py`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 Write `tests/test_streaming.py`:
 
@@ -2683,7 +2683,7 @@ async def test_stream_run_decision_event_has_payload_keys(strong_applicant: Appl
     assert "memo" in decision_evt.payload
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 ```bash
 pytest tests/test_streaming.py -v
@@ -2691,7 +2691,7 @@ pytest tests/test_streaming.py -v
 
 Expected: ImportError.
 
-- [ ] **Step 3: Write underwriter/streaming.py**
+- [x] **Step 3: Write underwriter/streaming.py**
 
 ```python
 """Bridge LangGraph graph.astream → typed AgentEvent async iterator for the SSE endpoint."""
@@ -2782,7 +2782,7 @@ def _serializable(obj: Any) -> Any:
     return obj
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_streaming.py -v
@@ -2790,7 +2790,7 @@ pytest tests/test_streaming.py -v
 
 Expected: 2 PASS. If `astream` updates per node include the `initialize` and `supervisor` nodes and they get filtered correctly, both tests pass.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add underwriter/streaming.py tests/test_streaming.py

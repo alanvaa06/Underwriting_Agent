@@ -35,10 +35,19 @@ def weak_applicant_raw(test_cases_raw: list[dict]) -> dict:
 def _to_applicant_in(raw: dict) -> ApplicantIn:
     """Adapt the legacy notebook JSON shape into ApplicantIn. test_cases.json must contain
     keys: name, credit_score, credit_history, employment, debts, assets, property_info, loan.
-    If older shape uses 'property' instead of 'property_info', remap here."""
+    If older shape uses 'property' instead of 'property_info', remap here.
+    If loan uses 'amount' instead of 'loan_amount', remap here."""
     payload = dict(raw)
     if "property" in payload and "property_info" not in payload:
         payload["property_info"] = payload.pop("property")
+    # Remap legacy loan shape: {amount, down_payment, ...} → {loan_amount, down_payment, term_years}
+    if "loan" in payload and isinstance(payload["loan"], dict):
+        loan = dict(payload["loan"])
+        if "amount" in loan and "loan_amount" not in loan:
+            loan["loan_amount"] = loan.pop("amount")
+        if "term_years" not in loan:
+            loan["term_years"] = 30
+        payload["loan"] = loan
     return ApplicantIn.model_validate(payload)
 
 
