@@ -2808,7 +2808,7 @@ git push origin main
 - Create: `app/sse.py`
 - Create: `tests/test_sse.py`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 Write `tests/test_sse.py`:
 
@@ -2833,7 +2833,7 @@ def test_format_event_data_is_compact_json():
     assert "\n" not in data_line[len("data: "):]
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 ```bash
 pytest tests/test_sse.py -v
@@ -2841,7 +2841,7 @@ pytest tests/test_sse.py -v
 
 Expected: ImportError.
 
-- [ ] **Step 3: Write app/sse.py**
+- [x] **Step 3: Write app/sse.py**
 
 ```python
 """SSE wire-format helper. Each event = `event: <type>\\ndata: <json>\\n\\n`."""
@@ -2857,7 +2857,7 @@ def format_event(evt: AgentEvent) -> str:
     return f"event: {evt.type}\ndata: {data_json}\n\n"
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_sse.py -v
@@ -2865,7 +2865,7 @@ pytest tests/test_sse.py -v
 
 Expected: 2 PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add app/sse.py tests/test_sse.py
