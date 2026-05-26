@@ -2881,12 +2881,12 @@ git push origin main
 - Create: `app/routes/__init__.py`
 - Create: `app/routes/health.py`
 
-- [ ] **Step 1: Write app/routes/__init__.py (empty)**
+- [x] **Step 1: Write app/routes/__init__.py (empty)**
 
 ```python
 ```
 
-- [ ] **Step 2: Write app/routes/health.py**
+- [x] **Step 2: Write app/routes/health.py**
 
 ```python
 """Liveness probe. Returns 200 OK + JSON status."""
@@ -2901,7 +2901,7 @@ async def healthz() -> dict:
     return {"status": "ok"}
 ```
 
-- [ ] **Step 3: Test will be exercised in Task 26 via integration tests once main.py is wired.**
+- [x] **Step 3: Test will be exercised in Task 26 via integration tests once main.py is wired.**
 
 For now just sanity check it imports:
 
@@ -2911,7 +2911,7 @@ python -c "from app.routes.health import router; print(router)"
 
 Expected: prints the router object, no error.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add app/routes/__init__.py app/routes/health.py
@@ -2926,7 +2926,7 @@ git push origin main
 **Files:**
 - Create: `app/routes/cases.py`
 
-- [ ] **Step 1: Write app/routes/cases.py**
+- [x] **Step 1: Write app/routes/cases.py**
 
 ```python
 """Returns the bundled example applicants. Frontend uses these as "load template" presets."""
@@ -2955,13 +2955,13 @@ async def list_cases() -> dict:
     }
 ```
 
-- [ ] **Step 2: Sanity import**
+- [x] **Step 2: Sanity import**
 
 ```bash
 python -c "from app.routes.cases import router; print(router)"
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add app/routes/cases.py
@@ -3365,7 +3365,7 @@ git push origin main
 - Create: `frontend/index.html`
 - Create: `frontend/assets/.gitkeep` (placeholder so dir commits)
 
-- [ ] **Step 1: Write frontend/index.html**
+- [x] **Step 1: Write frontend/index.html**
 
 ```html
 <!DOCTYPE html>
@@ -3523,14 +3523,14 @@ git push origin main
 </html>
 ```
 
-- [ ] **Step 2: Create placeholder so frontend/assets/ commits**
+- [x] **Step 2: Create placeholder so frontend/assets/ commits**
 
 ```bash
 mkdir -p frontend/assets
 touch frontend/assets/.gitkeep
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add frontend/index.html frontend/assets/.gitkeep
@@ -3545,7 +3545,7 @@ git push origin main
 **Files:**
 - Create: `frontend/styles.css`
 
-- [ ] **Step 1: Write frontend/styles.css**
+- [x] **Step 1: Write frontend/styles.css**
 
 ```css
 /* Custom styles layered on top of Tailwind CDN. Used for graph animation + decision color states. */
@@ -3594,7 +3594,7 @@ git push origin main
 }
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add frontend/styles.css
@@ -3609,7 +3609,7 @@ git push origin main
 **Files:**
 - Create: `frontend/graph.js`
 
-- [ ] **Step 1: Write frontend/graph.js**
+- [x] **Step 1: Write frontend/graph.js**
 
 ```javascript
 /* Mermaid-based workflow graph. Mutates classDef per agent event and re-renders. */
@@ -3675,7 +3675,7 @@ ${stateLines}
 })();
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add frontend/graph.js
@@ -3690,7 +3690,7 @@ git push origin main
 **Files:**
 - Create: `frontend/app.js`
 
-- [ ] **Step 1: Write frontend/app.js**
+- [x] **Step 1: Write frontend/app.js**
 
 ```javascript
 /* Form handling, SSE consumption, UI state dispatch. */
@@ -3939,7 +3939,7 @@ git push origin main
 })();
 ```
 
-- [ ] **Step 2: Manual smoke — boot the app, open in browser**
+- [x] **Step 2: Manual smoke — boot the app, open in browser**
 
 ```bash
 uvicorn app.main:app --reload --port 7860
@@ -3951,7 +3951,7 @@ Open http://localhost:7860 in browser. Confirm:
 - DTI / LTV update as you type
 - Clicking Run with empty form → shows "Enter a valid OpenAI API key" error
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add frontend/app.js
@@ -3968,7 +3968,7 @@ git push origin main
 **Files:**
 - Create: `tests/test_e2e.py`
 
-- [ ] **Step 1: Write tests/test_e2e.py**
+- [x] **Step 1: Write tests/test_e2e.py**
 
 ```python
 """End-to-end with real gpt-4o. Skipped unless OPENAI_API_KEY is set.
@@ -4039,7 +4039,7 @@ def test_borderline_applicant_conditional_or_denied(real_client: TestClient):
     assert _decision(events) in {"CONDITIONAL_APPROVAL", "DENIED"}
 ```
 
-- [ ] **Step 2: Run e2e (only if you want to spend ~$0.50)**
+- [x] **Step 2: Run e2e (only if you want to spend ~$0.50)**
 
 ```bash
 $env:OPENAI_API_KEY = "sk-..."
@@ -4048,7 +4048,7 @@ pytest tests/test_e2e.py -v -s
 
 Expected: 3 PASS or, if results drift, the test failure tells you which case to recheck.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add tests/test_e2e.py
@@ -4064,7 +4064,7 @@ git push origin main
 - Create: `Dockerfile`
 - Create: `scripts/run_local.sh`
 
-- [ ] **Step 1: Write Dockerfile**
+- [x] **Step 1: Write Dockerfile**
 
 ```dockerfile
 FROM python:3.12-slim
@@ -4090,7 +4090,7 @@ EXPOSE 7860
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "7860", "--workers", "1"]
 ```
 
-- [ ] **Step 2: Write scripts/run_local.sh**
+- [x] **Step 2: Write scripts/run_local.sh**
 
 ```bash
 #!/usr/bin/env bash
@@ -4105,7 +4105,7 @@ Make executable:
 chmod +x scripts/run_local.sh
 ```
 
-- [ ] **Step 3: Build Docker image locally to verify**
+- [x] **Step 3: Build Docker image locally to verify**
 
 ```bash
 docker build -t underwriter-agent:dev .
@@ -4114,7 +4114,7 @@ docker run --rm -p 7860:7860 underwriter-agent:dev
 
 Open http://localhost:7860 — confirm app loads.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add Dockerfile scripts/run_local.sh
@@ -4132,7 +4132,7 @@ git push origin main
 - Create: `.github/workflows/test.yml`
 - Create: `.github/workflows/e2e.yml`
 
-- [ ] **Step 1: Write .github/workflows/test.yml**
+- [x] **Step 1: Write .github/workflows/test.yml**
 
 ```yaml
 name: test
@@ -4164,7 +4164,7 @@ jobs:
         run: pytest --cov=underwriter --cov=app --cov-fail-under=85 --ignore=tests/test_e2e.py
 ```
 
-- [ ] **Step 2: Write .github/workflows/e2e.yml**
+- [x] **Step 2: Write .github/workflows/e2e.yml**
 
 ```yaml
 name: e2e
@@ -4188,7 +4188,7 @@ jobs:
         run: pytest tests/test_e2e.py -v
 ```
 
-- [ ] **Step 3: Commit and push to trigger first CI**
+- [x] **Step 3: Commit and push to trigger first CI**
 
 ```bash
 git add .github/workflows/test.yml .github/workflows/e2e.yml
@@ -4198,7 +4198,7 @@ git push origin main
 
 Expected: CI runs on GitHub, all checks green.
 
-- [ ] **Step 4: Watch CI and fix any reported issues**
+- [x] **Step 4: Watch CI and fix any reported issues**
 
 ```bash
 gh run watch
@@ -4213,7 +4213,7 @@ If failures, fix issues (likely small typing/lint fixes) and push follow-up comm
 **Files:**
 - Modify: `README.md` (overwrite GitHub default)
 
-- [ ] **Step 1: Overwrite README.md**
+- [x] **Step 1: Overwrite README.md**
 
 ```markdown
 # 🏠 Underwriter Agent
@@ -4277,7 +4277,7 @@ Built from a Johns Hopkins / GreatLearning Agentic AI course lab notebook (`note
 MIT — see [`LICENSE`](LICENSE).
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add README.md
@@ -4294,7 +4294,7 @@ git push origin main
 - Create: `docs/deployment.md`
 - Create: `docs/manual-test-plan.md`
 
-- [ ] **Step 1: Write docs/architecture.md**
+- [x] **Step 1: Write docs/architecture.md**
 
 ```markdown
 # Architecture
@@ -4376,7 +4376,7 @@ event: done              data: {"type":"done","payload":{"total_duration_ms":...
 `state.applicant_data` = raw (for tools that need real numbers). `state.sanitized_data` = scrubbed (passed to LLM prompts). Agents read only sanitized.
 ```
 
-- [ ] **Step 2: Write docs/deployment.md**
+- [x] **Step 2: Write docs/deployment.md**
 
 ```markdown
 # Deployment
@@ -4431,7 +4431,7 @@ docker run --rm -p 7860:7860 underwriter-agent:dev
 - **Versioning**: semver in `pyproject.toml`; tag milestones.
 ```
 
-- [ ] **Step 3: Write docs/manual-test-plan.md**
+- [x] **Step 3: Write docs/manual-test-plan.md**
 
 ```markdown
 # Manual Frontend Test Plan
@@ -4449,7 +4449,7 @@ Run before every deploy to `main`. Tick each box in the PR description.
 If any box fails: do not merge. Fix and re-test.
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add docs/architecture.md docs/deployment.md docs/manual-test-plan.md
