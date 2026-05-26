@@ -597,7 +597,7 @@ git push origin main
 - Create: `underwriter/tools.py`
 - Create: `tests/test_tools.py`
 
-- [ ] **Step 1: Write failing tests**
+- [x] **Step 1: Write failing tests**
 
 Write `tests/test_tools.py`:
 
@@ -667,7 +667,7 @@ def test_sanitize_pii_does_not_mutate_input():
     assert applicant["name"] == "Sarah Johnson"
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 ```bash
 pytest tests/test_tools.py -v
@@ -675,7 +675,7 @@ pytest tests/test_tools.py -v
 
 Expected: ImportError on `underwriter.tools`.
 
-- [ ] **Step 3: Write underwriter/tools.py**
+- [x] **Step 3: Write underwriter/tools.py**
 
 ```python
 """Pure computational + PII-scrubbing helpers shared across agents."""
@@ -732,7 +732,7 @@ def sanitize_pii(applicant: dict[str, Any]) -> dict[str, Any]:
     return out
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_tools.py -v
@@ -740,7 +740,7 @@ pytest tests/test_tools.py -v
 
 Expected: 10 PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add underwriter/tools.py tests/test_tools.py
@@ -756,7 +756,7 @@ git push origin main
 - Create: `underwriter/errors.py`
 - Create: `tests/test_errors_module.py`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 Write `tests/test_errors_module.py`:
 
@@ -814,7 +814,7 @@ def test_all_errors_are_underwriter_error():
         assert issubclass(cls, UnderwriterError)
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 ```bash
 pytest tests/test_errors_module.py -v
@@ -822,7 +822,7 @@ pytest tests/test_errors_module.py -v
 
 Expected: ImportError.
 
-- [ ] **Step 3: Write underwriter/errors.py**
+- [x] **Step 3: Write underwriter/errors.py**
 
 ```python
 """Typed exception hierarchy mapped to SSE error codes in app/routes/run.py."""
@@ -858,7 +858,7 @@ class AgentParseError(UnderwriterError):
     recoverable = False
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 ```bash
 pytest tests/test_errors_module.py -v
@@ -866,7 +866,7 @@ pytest tests/test_errors_module.py -v
 
 Expected: 7 PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add underwriter/errors.py tests/test_errors_module.py
@@ -883,7 +883,7 @@ git push origin main
 - Create: `app/schemas.py`
 - Create: `tests/test_schemas.py`
 
-- [ ] **Step 1: Write failing tests**
+- [x] **Step 1: Write failing tests**
 
 Write `tests/test_schemas.py`:
 
@@ -1015,7 +1015,7 @@ def test_agent_event_rejects_unknown_type():
         AgentEvent(type="not_a_type", payload={}, ts=0.0)
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 ```bash
 pytest tests/test_schemas.py -v
@@ -1023,13 +1023,13 @@ pytest tests/test_schemas.py -v
 
 Expected: ImportError on `app.schemas`.
 
-- [ ] **Step 3: Write app/__init__.py (empty)**
+- [x] **Step 3: Write app/__init__.py (empty)**
 
 ```python
 """FastAPI shell — routes, SSE, schemas. No business logic."""
 ```
 
-- [ ] **Step 4: Write app/schemas.py**
+- [x] **Step 4: Write app/schemas.py**
 
 ```python
 """Pydantic v2 request/response/event schemas. Wire format for the SSE API."""
@@ -1128,7 +1128,7 @@ class AgentEvent(BaseModel):
     ts: float
 ```
 
-- [ ] **Step 5: Run tests to verify they pass**
+- [x] **Step 5: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_schemas.py -v
@@ -1136,7 +1136,7 @@ pytest tests/test_schemas.py -v
 
 Expected: 10 PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add app/__init__.py app/schemas.py tests/test_schemas.py
@@ -1151,7 +1151,7 @@ git push origin main
 **Files:**
 - Create: `tests/conftest.py`
 
-- [ ] **Step 1: Write conftest.py**
+- [x] **Step 1: Write conftest.py**
 
 ```python
 """Shared pytest fixtures. Imported automatically by all tests in tests/."""
@@ -1231,7 +1231,7 @@ def fake_llm(fake_llm_responses: list[str]) -> FakeListChatModel:
     return FakeListChatModel(responses=fake_llm_responses)
 ```
 
-- [ ] **Step 2: Verify existing tests still pass with conftest in place**
+- [x] **Step 2: Verify existing tests still pass with conftest in place**
 
 ```bash
 pytest tests/ -v
@@ -1239,7 +1239,7 @@ pytest tests/ -v
 
 Expected: all prior tests still PASS (conftest doesn't interfere).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add tests/conftest.py
@@ -1259,7 +1259,7 @@ Note on test_cases.json shape: the legacy notebook may have used `property` inst
 - Create: `scripts/__init__.py` (not really a package — just empty so editors don't choke)
 - Create: `scripts/build_chroma.py`
 
-- [ ] **Step 1: Write scripts/build_chroma.py**
+- [x] **Step 1: Write scripts/build_chroma.py**
 
 ```python
 """One-shot script: load underwriting_policies.pdf, split, embed, persist to data/chroma/.
@@ -1327,7 +1327,7 @@ if __name__ == "__main__":
     sys.exit(main())
 ```
 
-- [ ] **Step 2: Run the script (requires OPENAI_API_KEY)**
+- [x] **Step 2: Run the script (requires OPENAI_API_KEY)**
 
 ```bash
 $env:OPENAI_API_KEY = "sk-..."     # PowerShell; or: export OPENAI_API_KEY=sk-... on bash
@@ -1336,7 +1336,7 @@ python scripts/build_chroma.py
 
 Expected: prints page count, chunk count, "Done. Vector store at data/chroma".
 
-- [ ] **Step 3: Verify Chroma artifact exists**
+- [x] **Step 3: Verify Chroma artifact exists**
 
 ```bash
 ls data/chroma/
@@ -1344,7 +1344,7 @@ ls data/chroma/
 
 Expected: contains `chroma.sqlite3` and an embeddings dir.
 
-- [ ] **Step 4: Commit script + built vector store**
+- [x] **Step 4: Commit script + built vector store**
 
 ```bash
 git add scripts/build_chroma.py data/chroma/
