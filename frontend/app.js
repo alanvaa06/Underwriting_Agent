@@ -1,0 +1,244 @@
+/* Form handling, SSE consumption, UI state dispatch. */
+
+(function () {
+  const form = document.getElementById('applicant-form');
+  const runBtn = document.getElementById('run-btn');
+  const cancelBtn = document.getElementById('cancel-btn');
+  const elapsedEl = document.getElementById('elapsed');
+  const tabContent = document.getElementById('tab-content');
+  const decisionCard = document.getElementById('decision-card');
+  const decisionHeadline = document.getElementById('decision-headline');
+  const riskScore = document.getElementById('risk-score');
+  const decisionMemo = document.getElementById('decision-memo');
+  const errorBanner = document.getElementById('error-banner');
+
+  const agentOutputs = {};
+  let abortController = null;
+  let elapsedTimer = null;
+  let startTime = null;
+
+  function $(name) {
+    return form.querySelector(`[name="${name}"]`).value;
+  }
+  function $n(name) {
+    const v = form.querySelector(`[name="${name}"]`).value;
+    return v === '' ? null : Number(v);
+  }
+
+  function buildPayload() {
+    return {
+      api_key: $('api_key'),
+      model: 'gpt-4o',
+      applicant: {
+        name: $('name'),
+        credit_score: $n('credit_score'),
+        credit_history: {
+          bankruptcies: $n('bankruptcies') || 0,
+          foreclosures: $n('foreclosures') || 0,
+          late_payments_12mo: $n('late_payments_12mo') || 0,
+          late_payments_24mo: $n('late_payments_24mo') || 0,
+          oldest_tradeline_years: $n('oldest_tradeline_years') || 0,
+        },
+        employment: {
+          employer: $('employer'),
+          position: $('position'),
+          years: $n('years'),
+          monthly_income: $n('monthly_income'),
+          type: $('emp_type'),
+        },
+        debts: {
+          car_loan: $n('car_loan') || 0,
+          student_loan: $n('student_loan') || 0,
+          credit_cards: $n('credit_cards') || 0,
+          other: $n('debt_other') || 0,
+        },
+        assets: {
+          checking: $n('checking') || 0,
+          savings: $n('savings') || 0,
+          investments: $n('investments') || 0,
+          retirement: $n('retirement') || 0,
+        },
+        property_info: {
+          purchase_price: $n('purchase_price'),
+          property_type: $('property_type'),
+          occupancy: $('occupancy'),
+        },
+        loan: {
+          loan_amount: $n('loan_amount'),
+          down_payment: $n('down_payment') || 0,
+          term_years: $n('term_years') || 30,
+        },
+      },
+    };
+  }
+
+  function recomputeDtiLtv() {
+    const monthly = $n('monthly_income') || 0;
+    const debts = ($n('car_loan')||0) + ($n('student_loan')||0) + ($n('credit_cards')||0) + ($n('debt_other')||0);
+    document.getElementById('computed-dti').textContent =
+      monthly > 0 ? (debts / monthly * 100).toFixed(1) + '%' : '—';
+
+    const purchase = $n('purchase_price') || 0;
+    const loan = $n('loan_amount') || 0;
+    document.getElementById('computed-ltv').textContent =
+      purchase > 0 ? (loan / purchase * 100).toFixed(1) + '%' : '—';
+  }
+  form.addEventListener('input', recomputeDtiLtv);
+
+  // Tab switching
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  let activeTab = 'credit';
+  function renderTab() {
+    tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === activeTab));
+    const data = agentOutputs[activeTab];
+    tabContent.textContent = data ? JSON.stringify(data, null, 2) : 'No output yet.';
+  }
+  tabBtns.forEach(b => b.addEventListener('click', () => { activeTab = b.dataset.tab; renderTab(); }));
+
+  function setRunning(running) {
+    runBtn.classList.toggle('hidden', running);
+    cancelBtn.classList.toggle('hidden', !running);
+    form.querySelectorAll('input, select').forEach(el => el.disabled = running);
+  }
+
+  function startElapsed() {
+    startTime = Date.now();
+    elapsedTimer = setInterval(() => {
+      elapsedEl.textContent = ((Date.now() - startTime) / 1000).toFixed(1) + 's';
+    }, 100);
+  }
+  function stopElapsed() {
+    if (elapsedTimer) clearInterval(elapsedTimer);
+    elapsedTimer = null;
+  }
+
+  function showError(msg) {
+    errorBanner.textContent = msg;
+    errorBanner.classList.remove('hidden');
+  }
+  function hideError() {
+    errorBanner.classList.add('hidden');
+  }
+
+  function showDecision(payload) {
+    const d = payload.decision;
+    decisionCard.classList.remove('hidden', 'decision-approved', 'decision-conditional', 'decision-denied');
+    if (d === 'APPROVED') decisionCard.classList.add('decision-approved');
+    else if (d === 'CONDITIONAL_APPROVAL') decisionCard.classList.add('decision-conditional');
+    else decisionCard.classList.add('decision-denied');
+    decisionHeadline.textContent = d.replace('_', ' ');
+    riskScore.textContent = payload.risk_score ?? '—';
+    decisionMemo.textContent = payload.memo ?? '';
+  }
+
+  function reset() {
+    Object.keys(agentOutputs).forEach(k => delete agentOutputs[k]);
+    decisionCard.classList.add('hidden');
+    hideError();
+    elapsedEl.textContent = '0.0s';
+    activeTab = 'credit';
+    renderTab();
+    if (window.UnderwriterGraph) window.UnderwriterGraph.reset();
+  }
+
+  async function consumeStream(response) {
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      let sep;
+      while ((sep = buffer.indexOf('\n\n')) !== -1) {
+        const block = buffer.slice(0, sep);
+        buffer = buffer.slice(sep + 2);
+
+        let eventType = null;
+        let data = null;
+        for (const line of block.split('\n')) {
+          if (line.startsWith('event: ')) eventType = line.slice(7);
+          else if (line.startsWith('data: ')) data = line.slice(6);
+        }
+        if (!eventType || data === null) continue;
+
+        let payload;
+        try { payload = JSON.parse(data); } catch { continue; }
+        const evt = { type: payload.type || eventType, payload: payload.payload || {}, ts: payload.ts };
+        handleEvent(evt);
+      }
+    }
+  }
+
+  function handleEvent(evt) {
+    if (window.UnderwriterGraph) window.UnderwriterGraph.onEvent(evt);
+    if (evt.type === 'agent_complete' && evt.payload.agent) {
+      const a = evt.payload.agent;
+      const key = a === 'critic' ? 'critic' : a;
+      agentOutputs[key] = evt.payload.output;
+      renderTab();
+    } else if (evt.type === 'decision') {
+      showDecision(evt.payload);
+    } else if (evt.type === 'error') {
+      const msg = (evt.payload.code || 'ERROR') + ': ' + (evt.payload.message || 'unknown');
+      showError(msg);
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideError();
+    reset();
+    if (window.UnderwriterGraph) window.UnderwriterGraph.render();
+
+    let payload;
+    try {
+      payload = buildPayload();
+      if (!payload.api_key || !payload.api_key.startsWith('sk-')) {
+        showError('Enter a valid OpenAI API key (starts with sk-).');
+        return;
+      }
+    } catch (err) {
+      showError('Invalid form: ' + err.message);
+      return;
+    }
+
+    setRunning(true);
+    startElapsed();
+    abortController = new AbortController();
+
+    try {
+      const r = await fetch('/api/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: abortController.signal,
+      });
+      if (!r.ok) {
+        const body = await r.text();
+        showError(`HTTP ${r.status}: ${body.slice(0, 200)}`);
+        return;
+      }
+      await consumeStream(r);
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        showError('Cancelled.');
+      } else {
+        showError('Network error: ' + err.message);
+      }
+    } finally {
+      setRunning(false);
+      stopElapsed();
+      abortController = null;
+    }
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    if (abortController) abortController.abort();
+  });
+
+  // initial graph render
+  if (window.UnderwriterGraph) window.UnderwriterGraph.render();
+})();
