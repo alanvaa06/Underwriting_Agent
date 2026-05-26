@@ -1,0 +1,44 @@
+/* Custom styles layered on top of Tailwind CDN. Used for graph animation + decision color states. */
+
+#graph-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.tab-btn.active {
+  border-bottom-color: rgb(37, 99, 235); /* blue-600 */
+  color: rgb(37, 99, 235);
+  font-weight: 600;
+}
+
+.decision-approved {
+  border-color: rgb(16, 185, 129); /* emerald-500 */
+  background-color: rgb(236, 253, 245); /* emerald-50 */
+}
+.decision-approved #decision-headline {
+  color: rgb(5, 122, 85);
+}
+
+.decision-conditional {
+  border-color: rgb(245, 158, 11); /* amber-500 */
+  background-color: rgb(255, 251, 235); /* amber-50 */
+}
+.decision-conditional #decision-headline {
+  color: rgb(180, 83, 9);
+}
+
+.decision-denied {
+  border-color: rgb(239, 68, 68); /* red-500 */
+  background-color: rgb(254, 242, 242); /* red-50 */
+}
+.decision-denied #decision-headline {
+  color: rgb(185, 28, 28);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.node-running rect {
+  animation: pulse-glow 1s ease-in-out infinite;
+}
