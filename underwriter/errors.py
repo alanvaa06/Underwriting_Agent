@@ -16,7 +16,7 @@ class RateLimitError(UnderwriterError):
     recoverable = True
 
 
-class TimeoutError(UnderwriterError):  # noqa: A001 — intentional shadow, namespaced via import
+class TimeoutError(UnderwriterError):
     code = "OPENAI_TIMEOUT"
     recoverable = True
 

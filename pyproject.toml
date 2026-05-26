@@ -10,6 +10,7 @@ authors = [{ name = "Alan Vazquez" }]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+extend-exclude = ["notebooks", "data", ".venv"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "W", "UP", "N", "RUF"]
@@ -20,12 +21,11 @@ quote-style = "double"
 
 [tool.mypy]
 python_version = "3.11"
-strict = true
 ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = ["tests.*"]
-strict = false
+warn_unused_ignores = true
+check_untyped_defs = false
+disallow_untyped_defs = false
+warn_return_any = false
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

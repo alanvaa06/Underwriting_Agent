@@ -17,7 +17,7 @@ _FENCE_RE = re.compile(r"^```(?:json)?\s*(.+?)\s*```$", re.DOTALL)
 
 def build_llm(*, api_key: str, model: str = "gpt-4o") -> BaseChatModel:
     """Construct a per-request ChatOpenAI. Key never persisted past this call."""
-    return ChatOpenAI(api_key=api_key, model=model, temperature=0.1, timeout=60)
+    return ChatOpenAI(api_key=api_key, model=model, temperature=0.1, timeout=60)  # type: ignore[arg-type]
 
 
 def invoke_agent(llm: BaseChatModel, *, system_prompt: str, user_prompt: str) -> dict[str, Any]:

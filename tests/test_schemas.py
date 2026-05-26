@@ -4,12 +4,7 @@ from pydantic import ValidationError
 from app.schemas import (
     AgentEvent,
     ApplicantIn,
-    Assets,
-    CreditHistory,
     Debts,
-    Employment,
-    LoanRequest,
-    PropertyInfo,
     RunRequest,
 )
 

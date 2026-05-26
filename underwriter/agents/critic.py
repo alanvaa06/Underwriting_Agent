@@ -9,7 +9,6 @@ from langchain_core.language_models import BaseChatModel
 from underwriter.agents.base import invoke_agent
 from underwriter.state import UnderwritingState
 
-
 SYSTEM_PROMPT = """You are a Senior Mortgage Underwriting Critic.
 You receive analyses from four specialist agents (credit, income, asset, collateral).
 Identify conflicts, gaps, weak reasoning, or bias.

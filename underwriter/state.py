@@ -1,7 +1,7 @@
 """LangGraph workflow state schema + initializer."""
 
 import operator
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated, Any, TypedDict
 
 
@@ -54,5 +54,5 @@ def init_state(*, applicant_data: dict[str, Any], case_id: str) -> UnderwritingS
         bias_flags=[],
         policy_violations=[],
         reasoning_chain=[],
-        timestamp=datetime.now(timezone.utc).isoformat(),
+        timestamp=datetime.now(UTC).isoformat(),
     )

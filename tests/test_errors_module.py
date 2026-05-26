@@ -1,4 +1,3 @@
-import pytest
 from underwriter.errors import (
     AgentParseError,
     AuthError,

@@ -1,4 +1,4 @@
-from underwriter.state import UnderwritingState, init_state
+from underwriter.state import init_state
 
 
 def test_init_state_populates_applicant_and_defaults():

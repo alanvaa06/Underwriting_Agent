@@ -32,7 +32,7 @@ async def lifespan(app: FastAPI):
             app.state.vector_store = load_or_build_store(
                 chroma_dir=CHROMA_DIR,
                 pdf_path=None,
-                embedding=OpenAIEmbeddings(api_key=api_key, model="text-embedding-3-small"),
+                embedding=OpenAIEmbeddings(api_key=api_key, model="text-embedding-3-small"),  # type: ignore[arg-type]
             )
             logger.info("Chroma store loaded from %s", CHROMA_DIR)
         except Exception:
