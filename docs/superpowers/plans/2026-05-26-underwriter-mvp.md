@@ -1360,7 +1360,7 @@ git push origin main
 - Create: `underwriter/rag.py`
 - Create: `tests/test_rag.py`
 
-- [ ] **Step 1: Write failing tests**
+- [x] **Step 1: Write failing tests**
 
 Write `tests/test_rag.py`:
 
@@ -1423,7 +1423,7 @@ def test_load_or_build_raises_when_no_dir_and_no_pdf(tmp_path: Path):
         )
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 ```bash
 pytest tests/test_rag.py -v
@@ -1431,7 +1431,7 @@ pytest tests/test_rag.py -v
 
 Expected: ImportError.
 
-- [ ] **Step 3: Write underwriter/rag.py**
+- [x] **Step 3: Write underwriter/rag.py**
 
 ```python
 """Chroma load/build + policy retrieval. Used by agents that need policy context."""
@@ -1489,7 +1489,7 @@ def retrieve_policy(store: Chroma, query: str, *, k: int = 4) -> list[Document]:
     return store.similarity_search(query, k=k)
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_rag.py -v
@@ -1497,7 +1497,7 @@ pytest tests/test_rag.py -v
 
 Expected: 3 PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add underwriter/rag.py tests/test_rag.py
@@ -1516,7 +1516,7 @@ git push origin main
 - Create: `underwriter/agents/base.py`
 - Create: `tests/test_agents_base.py`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 Write `tests/test_agents_base.py`:
 
@@ -1557,7 +1557,7 @@ def test_invoke_agent_raises_agent_parse_error_on_bad_json():
         assert "JSON" in str(e) or "parse" in str(e).lower()
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 ```bash
 pytest tests/test_agents_base.py -v
@@ -1565,13 +1565,13 @@ pytest tests/test_agents_base.py -v
 
 Expected: ImportError.
 
-- [ ] **Step 3: Write underwriter/agents/__init__.py (empty)**
+- [x] **Step 3: Write underwriter/agents/__init__.py (empty)**
 
 ```python
 """Individual agent node implementations + shared base helpers."""
 ```
 
-- [ ] **Step 4: Write underwriter/agents/base.py**
+- [x] **Step 4: Write underwriter/agents/base.py**
 
 ```python
 """Shared LLM factory + JSON-extraction wrapper used by every agent node."""
@@ -1612,7 +1612,7 @@ def invoke_agent(llm: BaseChatModel, *, system_prompt: str, user_prompt: str) ->
         raise AgentParseError(f"Failed to parse JSON from LLM: {e}. Raw: {raw[:200]}") from e
 ```
 
-- [ ] **Step 5: Run tests to verify they pass**
+- [x] **Step 5: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_agents_base.py -v
@@ -1620,7 +1620,7 @@ pytest tests/test_agents_base.py -v
 
 Expected: 4 PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add underwriter/agents/__init__.py underwriter/agents/base.py tests/test_agents_base.py
@@ -1636,7 +1636,7 @@ git push origin main
 - Create: `underwriter/agents/credit.py`
 - Create: `tests/test_agent_credit.py`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 Write `tests/test_agent_credit.py`:
 
@@ -1679,7 +1679,7 @@ def test_credit_node_uses_retriever_when_provided(strong_applicant_raw):
     assert "credit_analysis" in delta
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 ```bash
 pytest tests/test_agent_credit.py -v
@@ -1687,7 +1687,7 @@ pytest tests/test_agent_credit.py -v
 
 Expected: ImportError.
 
-- [ ] **Step 3: Write underwriter/agents/credit.py**
+- [x] **Step 3: Write underwriter/agents/credit.py**
 
 ```python
 """Credit Analyst agent — evaluates FICO, history, derogatory items."""
@@ -1757,7 +1757,7 @@ def credit_analyst_node(
     }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_agent_credit.py -v
@@ -1765,7 +1765,7 @@ pytest tests/test_agent_credit.py -v
 
 Expected: 2 PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add underwriter/agents/credit.py tests/test_agent_credit.py
@@ -1781,7 +1781,7 @@ git push origin main
 - Create: `underwriter/agents/income.py`
 - Create: `tests/test_agent_income.py`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 Write `tests/test_agent_income.py`:
 
@@ -1817,7 +1817,7 @@ def test_income_node_handles_missing_employment_gracefully(strong_applicant_raw)
     assert "income_analysis" in delta
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 ```bash
 pytest tests/test_agent_income.py -v
@@ -1825,7 +1825,7 @@ pytest tests/test_agent_income.py -v
 
 Expected: ImportError.
 
-- [ ] **Step 3: Write underwriter/agents/income.py**
+- [x] **Step 3: Write underwriter/agents/income.py**
 
 ```python
 """Income Analyst agent — evaluates employment, income stability, DTI."""
@@ -1907,7 +1907,7 @@ def income_analyst_node(
     }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_agent_income.py -v
@@ -1915,7 +1915,7 @@ pytest tests/test_agent_income.py -v
 
 Expected: 2 PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add underwriter/agents/income.py tests/test_agent_income.py
@@ -1931,7 +1931,7 @@ git push origin main
 - Create: `underwriter/agents/asset.py`
 - Create: `tests/test_agent_asset.py`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 Write `tests/test_agent_asset.py`:
 
@@ -1958,7 +1958,7 @@ def test_asset_node_returns_asset_analysis(strong_applicant_raw):
     assert any("asset" in s.lower() for s in delta["reasoning_chain"])
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 ```bash
 pytest tests/test_agent_asset.py -v
@@ -1966,7 +1966,7 @@ pytest tests/test_agent_asset.py -v
 
 Expected: ImportError.
 
-- [ ] **Step 3: Write underwriter/agents/asset.py**
+- [x] **Step 3: Write underwriter/agents/asset.py**
 
 ```python
 """Asset Analyst agent — verifies liquid reserves + down payment sourcing."""
@@ -2040,7 +2040,7 @@ def asset_analyst_node(
     }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_agent_asset.py -v
@@ -2048,7 +2048,7 @@ pytest tests/test_agent_asset.py -v
 
 Expected: 1 PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add underwriter/agents/asset.py tests/test_agent_asset.py
@@ -2309,7 +2309,7 @@ git push origin main
 - Create: `underwriter/agents/decision.py`
 - Create: `tests/test_agent_decision.py`
 
-- [ ] **Step 1: Write failing tests**
+- [x] **Step 1: Write failing tests**
 
 Write `tests/test_agent_decision.py`:
 
@@ -2366,7 +2366,7 @@ def test_decision_node_clamps_risk_score_to_0_100(strong_applicant_raw):
     assert 0 <= delta["risk_score"] <= 100
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 ```bash
 pytest tests/test_agent_decision.py -v
@@ -2374,7 +2374,7 @@ pytest tests/test_agent_decision.py -v
 
 Expected: ImportError.
 
-- [ ] **Step 3: Write underwriter/agents/decision.py**
+- [x] **Step 3: Write underwriter/agents/decision.py**
 
 ```python
 """Decision agent — emits final APPROVED / CONDITIONAL_APPROVAL / DENIED + risk score + memo."""
@@ -2436,7 +2436,7 @@ def decision_node(state: UnderwritingState, *, llm: BaseChatModel) -> dict:
     }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_agent_decision.py -v
@@ -2444,7 +2444,7 @@ pytest tests/test_agent_decision.py -v
 
 Expected: 3 PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add underwriter/agents/decision.py tests/test_agent_decision.py
@@ -2462,7 +2462,7 @@ git push origin main
 - Create: `underwriter/graph.py`
 - Create: `tests/test_graph.py`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 Write `tests/test_graph.py`:
 
@@ -2501,7 +2501,7 @@ def test_workflow_compiles_without_error():
     assert graph is not None
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 ```bash
 pytest tests/test_graph.py -v
@@ -2509,7 +2509,7 @@ pytest tests/test_graph.py -v
 
 Expected: ImportError.
 
-- [ ] **Step 3: Write underwriter/graph.py**
+- [x] **Step 3: Write underwriter/graph.py**
 
 ```python
 """LangGraph workflow: initialize → supervisor → 4 specialists → critic → decision → END."""
@@ -2619,7 +2619,7 @@ def build_workflow(
     return workflow.compile(checkpointer=MemorySaver())
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 ```bash
 pytest tests/test_graph.py -v
@@ -2627,7 +2627,7 @@ pytest tests/test_graph.py -v
 
 Expected: 2 PASS. Note: `graph.invoke(state)` in LangGraph 0.2 requires a config dict with `thread_id` when using a checkpointer. If the test fails with "Missing config", update the test to pass `config={"configurable": {"thread_id": "test-1"}}` to `graph.invoke()`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add underwriter/graph.py tests/test_graph.py

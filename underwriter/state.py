@@ -1,5 +1,6 @@
 """LangGraph workflow state schema + initializer."""
 
+import operator
 from datetime import datetime, timezone
 from typing import Annotated, Any, TypedDict
 
@@ -28,7 +29,7 @@ class UnderwritingState(TypedDict):
     bias_flags: list[str]
     policy_violations: list[str]
 
-    reasoning_chain: Annotated[list[str], "append"]
+    reasoning_chain: Annotated[list[str], operator.add]
     timestamp: str
 
 
