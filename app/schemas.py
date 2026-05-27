@@ -15,6 +15,7 @@ class CreditHistory(BaseModel):
     inquiries_6mo: int = Field(default=0, ge=0)
     total_tradelines: int = Field(default=0, ge=0)
     credit_notes: str = ""
+    notes: str = Field(default="", max_length=2000)
 
 
 class Employment(BaseModel):
@@ -25,6 +26,7 @@ class Employment(BaseModel):
     type: Literal["W2", "1099", "self_employed"] = "W2"
     employment_gap: str = "None"
     gap_explanation: str = "N/A"
+    notes: str = Field(default="", max_length=2000)
 
 
 class Debts(BaseModel):
@@ -32,6 +34,7 @@ class Debts(BaseModel):
     student_loan: float = Field(default=0, ge=0)
     credit_cards: float = Field(default=0, ge=0)
     other: float = Field(default=0, ge=0)
+    notes: str = Field(default="", max_length=2000)
 
     @property
     def total_monthly(self) -> float:
@@ -43,6 +46,7 @@ class Assets(BaseModel):
     savings: float = Field(default=0, ge=0)
     investments: float = Field(default=0, ge=0)
     retirement: float = Field(default=0, ge=0)
+    notes: str = Field(default="", max_length=2000)
 
 
 class PropertyInfo(BaseModel):
@@ -50,6 +54,7 @@ class PropertyInfo(BaseModel):
     property_type: Literal["single_family", "condo", "townhouse", "multi_family"] = "single_family"
     occupancy: Literal["primary", "secondary", "investment"] = "primary"
     appraised_value: float | None = None
+    notes: str = Field(default="", max_length=2000)
 
 
 class LoanRequest(BaseModel):

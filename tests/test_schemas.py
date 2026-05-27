@@ -117,3 +117,33 @@ def test_agent_event_serializes_to_dict():
 def test_agent_event_rejects_unknown_type():
     with pytest.raises(ValidationError):
         AgentEvent(type="not_a_type", payload={}, ts=0.0)
+
+
+def test_credit_history_accepts_notes():
+    from app.schemas import CreditHistory
+    h = CreditHistory.model_validate({
+        "bankruptcies": 0, "foreclosures": 0, "late_payments_12mo": 0,
+        "late_payments_24mo": 0, "oldest_tradeline_years": 5,
+        "notes": "Late payment was banking error.",
+    })
+    assert h.notes == "Late payment was banking error."
+
+
+def test_notes_default_empty_string():
+    from app.schemas import CreditHistory
+    h = CreditHistory.model_validate({
+        "bankruptcies": 0, "foreclosures": 0, "late_payments_12mo": 0,
+        "late_payments_24mo": 0, "oldest_tradeline_years": 5,
+    })
+    assert h.notes == ""
+
+
+def test_notes_rejects_over_2000_chars():
+    from app.schemas import CreditHistory
+    from pydantic import ValidationError
+    with pytest.raises(ValidationError):
+        CreditHistory.model_validate({
+            "bankruptcies": 0, "foreclosures": 0, "late_payments_12mo": 0,
+            "late_payments_24mo": 0, "oldest_tradeline_years": 5,
+            "notes": "x" * 2001,
+        })
