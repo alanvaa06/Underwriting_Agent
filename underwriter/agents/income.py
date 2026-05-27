@@ -56,6 +56,9 @@ def income_analyst_node(
         except Exception:
             policy_context = ""
 
+    emp_notes = emp.get("notes", "").strip() or "(none)"
+    debt_notes = debts.get("notes", "").strip() or "(none)"
+
     user_prompt = (
         f"Applicant income profile:\n"
         f"  Employer: {emp.get('employer', 'N/A')}\n"
@@ -65,6 +68,8 @@ def income_analyst_node(
         f"  Type: {emp.get('type', 'N/A')}\n"
         f"  Total monthly debt: ${total_debt:,.0f}\n"
         f"  Computed DTI: {computed_dti if computed_dti is not None else 'N/A'}\n"
+        f"\nUnderwriter notes (employment): {emp_notes}\n"
+        f"Underwriter notes (debts): {debt_notes}\n"
         f"{policy_context}\n\nReturn the JSON object now."
     )
 

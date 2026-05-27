@@ -34,3 +34,28 @@ def test_credit_node_uses_retriever_when_provided(strong_applicant_raw):
     state = _state_with_sanitized(strong_applicant_raw)
     delta = credit_analyst_node(state, llm=llm, retriever=FakeRetriever())
     assert "credit_analysis" in delta
+
+
+class _RecordingLLM:
+    def __init__(self, response: str):
+        self.captured_prompts = []
+        self.response = response
+
+    def invoke(self, messages):
+        self.captured_prompts.append([m.content for m in messages])
+
+        class _Msg:
+            content = self.response
+
+        return _Msg()
+
+
+def test_credit_node_includes_notes_in_prompt(strong_applicant_raw):
+    raw = dict(strong_applicant_raw)
+    raw["credit_history"] = {**raw["credit_history"], "notes": "Late payment was banking error."}
+    state = init_state(applicant_data=raw, case_id="T")
+    state["sanitized_data"] = sanitize_pii(raw)
+    llm = _RecordingLLM('{"summary":"OK","risk_level":"low"}')
+    credit_analyst_node(state, llm=llm, retriever=None)
+    user_prompt = llm.captured_prompts[0][1]
+    assert "banking error" in user_prompt

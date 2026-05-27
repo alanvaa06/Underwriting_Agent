@@ -46,6 +46,8 @@ def asset_analyst_node(
         except Exception:
             policy_context = ""
 
+    notes = assets.get("notes", "").strip() or "(none)"
+
     user_prompt = (
         f"Applicant asset profile:\n"
         f"  Checking: ${assets.get('checking', 0):,.0f}\n"
@@ -57,6 +59,7 @@ def asset_analyst_node(
         f"  Requested loan: ${loan.get('loan_amount', 0):,.0f}\n"
         f"  Down payment: ${loan.get('down_payment', 0):,.0f}\n"
         f"  Purchase price: ${prop.get('purchase_price', 0):,.0f}\n"
+        f"\nUnderwriter notes: {notes}\n"
         f"{policy_context}\n\nReturn the JSON object now."
     )
 

@@ -44,6 +44,8 @@ def credit_analyst_node(
         except Exception:
             policy_context = ""
 
+    notes = credit.get("notes", "").strip() or "(none)"
+
     user_prompt = (
         f"Applicant credit profile:\n"
         f"  FICO: {applicant.get('credit_score')}\n"
@@ -53,6 +55,7 @@ def credit_analyst_node(
         f"  Late payments (24mo): {credit.get('late_payments_24mo', 0)}\n"
         f"  Oldest tradeline (years): {credit.get('oldest_tradeline_years', 0)}\n"
         f"  Recent inquiries (6mo): {credit.get('inquiries_6mo', 0)}\n"
+        f"\nUnderwriter notes: {notes}\n"
         f"{policy_context}\n\nReturn the JSON object now."
     )
 

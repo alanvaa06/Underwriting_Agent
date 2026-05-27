@@ -54,6 +54,8 @@ def collateral_analyst_node(
         except Exception:
             policy_context = ""
 
+    notes = prop.get("notes", "").strip() or "(none)"
+
     user_prompt = (
         f"Property collateral profile:\n"
         f"  Type: {prop.get('property_type', 'N/A')}\n"
@@ -62,6 +64,7 @@ def collateral_analyst_node(
         f"  Appraised value: ${appraised:,.0f}\n"
         f"  Loan amount: ${loan_amount:,.0f}\n"
         f"  Computed LTV: {computed_ltv if computed_ltv is not None else 'N/A'}\n"
+        f"\nUnderwriter notes: {notes}\n"
         f"{policy_context}\n\nReturn the JSON object now."
     )
 
