@@ -22,7 +22,9 @@
   }
   function $n(name) {
     const v = form.querySelector(`[name="${name}"]`).value;
-    return v === '' ? null : Number(v);
+    if (v === '') return null;
+    const stripped = v.replace(/,/g, '');
+    return stripped === '' ? null : Number(stripped);
   }
 
   function buildPayload() {
