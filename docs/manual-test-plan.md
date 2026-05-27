@@ -9,5 +9,8 @@ Run before every deploy to `main`. Tick each box in the PR description.
 - [ ] Weak applicant full run → DENIED card (red border)
 - [ ] Refresh page during stream → no zombie state, fresh page loads cleanly, no console errors
 - [ ] Mobile viewport (375×667) → form sections stack vertically, graph SVG scales to width, no horizontal scroll
+- [ ] Hover any `?` icon — tooltip popover appears within 100ms with correct text, disappears when cursor moves off
+- [ ] In Monthly income, type `12500` and click outside — input displays `12,500`; click back in — reverts to `12500`
+- [ ] Submit form with money fields filled — verify in DevTools Network tab that POST `/api/run` body contains integer values (e.g. `12500`), not string `"12,500"`
 
 If any box fails: do not merge. Fix and re-test.
