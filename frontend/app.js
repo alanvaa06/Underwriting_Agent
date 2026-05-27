@@ -40,6 +40,7 @@
           late_payments_12mo: $n('late_payments_12mo') || 0,
           late_payments_24mo: $n('late_payments_24mo') || 0,
           oldest_tradeline_years: $n('oldest_tradeline_years') || 0,
+          notes: $('credit_notes'),
         },
         employment: {
           employer: $('employer'),
@@ -47,23 +48,27 @@
           years: $n('years'),
           monthly_income: $n('monthly_income'),
           type: $('emp_type'),
+          notes: $('employment_notes'),
         },
         debts: {
           car_loan: $n('car_loan') || 0,
           student_loan: $n('student_loan') || 0,
           credit_cards: $n('credit_cards') || 0,
           other: $n('debt_other') || 0,
+          notes: $('debts_notes'),
         },
         assets: {
           checking: $n('checking') || 0,
           savings: $n('savings') || 0,
           investments: $n('investments') || 0,
           retirement: $n('retirement') || 0,
+          notes: $('assets_notes'),
         },
         property_info: {
           purchase_price: $n('purchase_price'),
           property_type: $('property_type'),
           occupancy: $('occupancy'),
+          notes: $('property_notes'),
         },
         loan: {
           loan_amount: $n('loan_amount'),
@@ -86,6 +91,12 @@
       purchase > 0 ? (loan / purchase * 100).toFixed(1) + '%' : '—';
   }
   form.addEventListener('input', recomputeDtiLtv);
+  form.addEventListener('input', (e) => {
+    if (e.target.tagName === 'TEXTAREA' && e.target.name && e.target.name.endsWith('_notes')) {
+      const counter = form.querySelector(`[data-counter="${e.target.name}"]`);
+      if (counter) counter.textContent = `${e.target.value.length} / 2000`;
+    }
+  });
 
   // Tab switching
   const tabBtns = document.querySelectorAll('.tab-btn');

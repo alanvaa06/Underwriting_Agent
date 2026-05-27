@@ -259,7 +259,7 @@ git commit -m "feat(tools): sanitize_pii deep-scrub SSN + email in nested string
 - Modify: `tests/test_agent_asset.py`
 - Modify: `tests/test_agent_collateral.py`
 
-- [ ] **Step 1: Write all 4 failing tests**
+- [x] **Step 1: Write all 4 failing tests**
 
 Each test file gets a `_RecordingLLM` helper class + one new test. The helper captures the prompts the agent sent so we can assert the notes string appears in them.
 
@@ -379,7 +379,7 @@ def test_collateral_node_includes_notes_in_prompt(strong_applicant_raw):
     assert "Appraisal pending" in user_prompt
 ```
 
-- [ ] **Step 2: Run all 4 tests — verify fail**
+- [x] **Step 2: Run all 4 tests — verify fail**
 
 ```bash
 .venv\Scripts\python.exe -m pytest tests/test_agent_credit.py::test_credit_node_includes_notes_in_prompt tests/test_agent_income.py::test_income_node_includes_employment_and_debts_notes_in_prompt tests/test_agent_asset.py::test_asset_node_includes_notes_in_prompt tests/test_agent_collateral.py::test_collateral_node_includes_notes_in_prompt -v
@@ -387,7 +387,7 @@ def test_collateral_node_includes_notes_in_prompt(strong_applicant_raw):
 
 Expected: all 4 FAIL — assertion error (notes string not in prompt because agents don't include it yet).
 
-- [ ] **Step 3: Update credit.py — include notes**
+- [x] **Step 3: Update credit.py — include notes**
 
 Open `C:\Proyectos\Underwriter_Agent\underwriter\agents\credit.py`. Find the `user_prompt = (` block. Replace it entirely with:
 
@@ -408,7 +408,7 @@ Open `C:\Proyectos\Underwriter_Agent\underwriter\agents\credit.py`. Find the `us
     )
 ```
 
-- [ ] **Step 4: Update income.py — include notes from BOTH employment + debts**
+- [x] **Step 4: Update income.py — include notes from BOTH employment + debts**
 
 Open `C:\Proyectos\Underwriter_Agent\underwriter\agents\income.py`. Find the `user_prompt = (` block. Replace it entirely with:
 
@@ -431,7 +431,7 @@ Open `C:\Proyectos\Underwriter_Agent\underwriter\agents\income.py`. Find the `us
     )
 ```
 
-- [ ] **Step 5: Update asset.py — include notes**
+- [x] **Step 5: Update asset.py — include notes**
 
 Open `C:\Proyectos\Underwriter_Agent\underwriter\agents\asset.py`. Find the `user_prompt = (` block. Replace it entirely with:
 
@@ -454,7 +454,7 @@ Open `C:\Proyectos\Underwriter_Agent\underwriter\agents\asset.py`. Find the `use
     )
 ```
 
-- [ ] **Step 6: Update collateral.py — include notes**
+- [x] **Step 6: Update collateral.py — include notes**
 
 Open `C:\Proyectos\Underwriter_Agent\underwriter\agents\collateral.py`. Find the `user_prompt = (` block. Replace it entirely with:
 
@@ -474,7 +474,7 @@ Open `C:\Proyectos\Underwriter_Agent\underwriter\agents\collateral.py`. Find the
     )
 ```
 
-- [ ] **Step 7: Run all 4 new tests + full suite — verify pass**
+- [x] **Step 7: Run all 4 new tests + full suite — verify pass**
 
 ```bash
 .venv\Scripts\python.exe -m pytest tests/test_agent_credit.py tests/test_agent_income.py tests/test_agent_asset.py tests/test_agent_collateral.py -v
@@ -488,7 +488,7 @@ Expected: all green (existing + 4 new = previous count + 4).
 
 Expected: `69 passed`.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add underwriter/agents/credit.py underwriter/agents/income.py underwriter/agents/asset.py underwriter/agents/collateral.py tests/test_agent_credit.py tests/test_agent_income.py tests/test_agent_asset.py tests/test_agent_collateral.py
@@ -505,7 +505,7 @@ git commit -m "feat(agents): credit/income/asset/collateral prompts include sect
 - Modify: `frontend/index.html`
 - Modify: `frontend/app.js`
 
-- [ ] **Step 1: Add 5 textareas to frontend/index.html**
+- [x] **Step 1: Add 5 textareas to frontend/index.html**
 
 Open `C:\Proyectos\Underwriter_Agent\frontend\index.html`. Inside each of the 5 `<details>` sections, immediately AFTER the closing `</div>` of the structured-fields grid and BEFORE the closing `</details>` tag (or before the existing "Computed DTI/LTV" `<p>` if present), insert one block per section:
 
@@ -574,7 +574,7 @@ Open `C:\Proyectos\Underwriter_Agent\frontend\index.html`. Inside each of the 5 
         </div>
 ```
 
-- [ ] **Step 2: Extend buildPayload() in frontend/app.js**
+- [x] **Step 2: Extend buildPayload() in frontend/app.js**
 
 Open `C:\Proyectos\Underwriter_Agent\frontend\app.js`. Find the `buildPayload()` function. Add a `notes` line to each of the 5 sub-objects. Replace the existing `applicant: { ... }` block with this exact version:
 
@@ -626,7 +626,7 @@ Open `C:\Proyectos\Underwriter_Agent\frontend\app.js`. Find the `buildPayload()`
       },
 ```
 
-- [ ] **Step 3: Add the live character counter listener**
+- [x] **Step 3: Add the live character counter listener**
 
 In `frontend/app.js`, find the existing `form.addEventListener('input', recomputeDtiLtv);` line. Add this block immediately AFTER it:
 
@@ -639,7 +639,7 @@ In `frontend/app.js`, find the existing `form.addEventListener('input', recomput
   });
 ```
 
-- [ ] **Step 4: Verify HTML element counts**
+- [x] **Step 4: Verify HTML element counts**
 
 ```bash
 .venv\Scripts\python.exe -c "import re; src=open('frontend/index.html').read(); n_ta=len(re.findall(r'<textarea name=\"\\w+_notes\"', src)); n_ctr=len(re.findall(r'data-counter=\"\\w+_notes\"', src)); print(f'textareas:{n_ta} counters:{n_ctr}'); assert n_ta==5 and n_ctr==5"
@@ -647,7 +647,7 @@ In `frontend/app.js`, find the existing `form.addEventListener('input', recomput
 
 Expected: `textareas:5 counters:5`
 
-- [ ] **Step 5: Run full backend suite — confirm no regression**
+- [x] **Step 5: Run full backend suite — confirm no regression**
 
 ```bash
 .venv\Scripts\python.exe -m pytest --ignore=tests/test_e2e.py -q
@@ -655,7 +655,7 @@ Expected: `textareas:5 counters:5`
 
 Expected: `69 passed`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add frontend/index.html frontend/app.js
