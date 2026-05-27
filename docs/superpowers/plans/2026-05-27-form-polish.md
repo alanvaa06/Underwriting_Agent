@@ -189,7 +189,7 @@ git commit -m "feat(frontend): format.js — money input formatter (blur/focus t
 **Files:**
 - Modify: `frontend/app.js`
 
-- [ ] **Step 1: Read current `$n()` function**
+- [x] **Step 1: Read current `$n()` function**
 
 Open `C:\Proyectos\Underwriter_Agent\frontend\app.js`. Locate the existing helper at top of IIFE:
 
@@ -200,7 +200,7 @@ Open `C:\Proyectos\Underwriter_Agent\frontend\app.js`. Locate the existing helpe
   }
 ```
 
-- [ ] **Step 2: Replace with comma-stripping version**
+- [x] **Step 2: Replace with comma-stripping version**
 
 Use Edit to replace exactly:
 
@@ -222,7 +222,7 @@ with:
   }
 ```
 
-- [ ] **Step 3: Boot dev server and verify no regression**
+- [x] **Step 3: Boot dev server and verify no regression**
 
 ```bash
 .venv\Scripts\python.exe -m uvicorn app.main:app --port 7860 &
@@ -230,7 +230,7 @@ with:
 
 Open `http://localhost:7860`. Type `12500` in Monthly income, then `1200` in Car loan. Watch "Computed DTI" — should display `9.6%` (still works, no commas yet). Stop server.
 
-- [ ] **Step 4: Run full pytest suite — confirm no backend regression**
+- [x] **Step 4: Run full pytest suite — confirm no backend regression**
 
 ```bash
 .venv\Scripts\python.exe -m pytest --ignore=tests/test_e2e.py -q
@@ -238,7 +238,7 @@ Open `http://localhost:7860`. Type `12500` in Monthly income, then `1200` in Car
 
 Expected: `59 passed`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add frontend/app.js
@@ -256,7 +256,7 @@ This is the biggest task. Three coordinated edits in one file.
 
 ### Step 1: Add `data-format="money"` and switch type on the 12 dollar inputs
 
-- [ ] **Edit each of these 12 inputs.** For each one, replace its current `<input ...>` tag with the new shape: change `type="number"` to `type="text" inputmode="numeric"` (remove `min`/`max`/`step` since they don't apply to text), keep `name` and `required` and Tailwind classes, add `data-format="money"`.
+- [x] **Edit each of these 12 inputs.** For each one, replace its current `<input ...>` tag with the new shape: change `type="number"` to `type="text" inputmode="numeric"` (remove `min`/`max`/`step` since they don't apply to text), keep `name` and `required` and Tailwind classes, add `data-format="money"`.
 
 Below is one example transformation. Apply the same pattern to all 12 inputs (names listed under the example):
 
@@ -287,7 +287,7 @@ Below is one example transformation. Apply the same pattern to all 12 inputs (na
 
 ### Step 2: Add `<span class="help" data-tip="...">?</span>` after every field's label text
 
-- [ ] Add tooltip spans inline with each label. Insert immediately before the `<input>` or `<select>` element, with a space separating it from the text node. Exact text per field:
+- [x] Add tooltip spans inline with each label. Insert immediately before the `<input>` or `<select>` element, with a space separating it from the text node. Exact text per field:
 
 | `name` attr | `data-tip` |
 |---|---|
@@ -368,7 +368,7 @@ Example for `emp_type` (select element):
 
 ### Step 3: Load format.js before app.js
 
-- [ ] Replace this block at the bottom of `<body>`:
+- [x] Replace this block at the bottom of `<body>`:
 
 **Before:**
 ```html
@@ -385,7 +385,7 @@ Example for `emp_type` (select element):
 
 ### Step 4: Boot dev server and manually smoke-test
 
-- [ ] Run:
+- [x] Run:
 
 ```bash
 .venv\Scripts\python.exe -m uvicorn app.main:app --port 7860 &
@@ -404,7 +404,7 @@ Stop server (Ctrl-C or kill the background process).
 
 ### Step 5: Commit
 
-- [ ] Run:
+- [x] Run:
 
 ```bash
 git add frontend/index.html

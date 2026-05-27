@@ -29,7 +29,7 @@
     <section class="lg:col-span-2 space-y-4">
       <form id="applicant-form" class="space-y-4" novalidate>
         <fieldset class="bg-white rounded-lg border border-slate-200 p-4">
-          <legend class="px-2 text-sm font-semibold text-slate-700">OpenAI API Key</legend>
+          <legend class="px-2 text-sm font-semibold text-slate-700">OpenAI API Key <span class="help" data-tip="Your sk-... key. Sent per-request, never stored.">?</span></legend>
           <input type="password" name="api_key" required placeholder="sk-..."
                  class="w-full px-3 py-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <p class="text-xs text-slate-500 mt-1">Required. Used per-request, never stored.</p>
@@ -38,24 +38,24 @@
         <details open class="bg-white rounded-lg border border-slate-200 p-4">
           <summary class="cursor-pointer text-sm font-semibold text-slate-700">Borrower</summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="col-span-2 text-xs">Full name <input name="name" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">FICO score <input name="credit_score" type="number" min="300" max="850" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Oldest tradeline (yrs) <input name="oldest_tradeline_years" type="number" step="0.1" min="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Bankruptcies <input name="bankruptcies" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Foreclosures <input name="foreclosures" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Late payments (12mo) <input name="late_payments_12mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Late payments (24mo) <input name="late_payments_24mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="col-span-2 text-xs">Full name <span class="help" data-tip="Borrower's full legal name.">?</span> <input name="name" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">FICO score <span class="help" data-tip="Credit score, 300–850. Higher is better.">?</span> <input name="credit_score" type="number" min="300" max="850" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Oldest tradeline (yrs) <span class="help" data-tip="Years since oldest credit line opened.">?</span> <input name="oldest_tradeline_years" type="number" step="0.1" min="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Bankruptcies <span class="help" data-tip="Filings in last 7 years.">?</span> <input name="bankruptcies" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Foreclosures <span class="help" data-tip="Lost properties in last 7 years.">?</span> <input name="foreclosures" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Late payments (12mo) <span class="help" data-tip="Payments 30+ days late, last 12 months.">?</span> <input name="late_payments_12mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Late payments (24mo) <span class="help" data-tip="Payments 30+ days late, last 24 months.">?</span> <input name="late_payments_24mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
           </div>
         </details>
 
         <details class="bg-white rounded-lg border border-slate-200 p-4">
           <summary class="cursor-pointer text-sm font-semibold text-slate-700">Employment</summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="col-span-2 text-xs">Employer <input name="employer" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="col-span-2 text-xs">Position <input name="position" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Tenure (years) <input name="years" type="number" step="0.1" min="0" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Monthly income ($) <input name="monthly_income" type="number" min="1" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Type
+            <label class="col-span-2 text-xs">Employer <span class="help" data-tip="Current employer name.">?</span> <input name="employer" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="col-span-2 text-xs">Position <span class="help" data-tip="Current job title.">?</span> <input name="position" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Tenure (years) <span class="help" data-tip="Years at current employer.">?</span> <input name="years" type="number" step="0.1" min="0" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Monthly income ($) <span class="help" data-tip="Gross monthly income before tax.">?</span> <input name="monthly_income" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Type <span class="help" data-tip="W2 = salaried. 1099 = contractor.">?</span>
               <select name="emp_type" class="w-full mt-1 px-2 py-1 border rounded">
                 <option value="W2">W2</option><option value="1099">1099</option><option value="self_employed">Self-employed</option>
               </select>
@@ -66,10 +66,10 @@
         <details class="bg-white rounded-lg border border-slate-200 p-4">
           <summary class="cursor-pointer text-sm font-semibold text-slate-700">Debts (monthly)</summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="text-xs">Car loan ($) <input name="car_loan" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Student loan ($) <input name="student_loan" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Credit cards ($) <input name="credit_cards" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Other ($) <input name="debt_other" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Car loan ($) <span class="help" data-tip="Monthly car payment.">?</span> <input name="car_loan" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Student loan ($) <span class="help" data-tip="Monthly student loan payment.">?</span> <input name="student_loan" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Credit cards ($) <span class="help" data-tip="Minimum monthly credit card payment.">?</span> <input name="credit_cards" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Other ($) <span class="help" data-tip="Other recurring monthly debt.">?</span> <input name="debt_other" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
           </div>
           <p class="text-xs text-slate-500 mt-2">Computed DTI: <span id="computed-dti" class="font-mono">—</span></p>
         </details>
@@ -77,26 +77,26 @@
         <details class="bg-white rounded-lg border border-slate-200 p-4">
           <summary class="cursor-pointer text-sm font-semibold text-slate-700">Assets</summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="text-xs">Checking ($) <input name="checking" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Savings ($) <input name="savings" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Investments ($) <input name="investments" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Retirement ($) <input name="retirement" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Checking ($) <span class="help" data-tip="Checking account balance.">?</span> <input name="checking" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Savings ($) <span class="help" data-tip="Savings account balance.">?</span> <input name="savings" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Investments ($) <span class="help" data-tip="Brokerage / non-retirement holdings.">?</span> <input name="investments" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Retirement ($) <span class="help" data-tip="401k / IRA balance.">?</span> <input name="retirement" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
           </div>
         </details>
 
         <details class="bg-white rounded-lg border border-slate-200 p-4">
           <summary class="cursor-pointer text-sm font-semibold text-slate-700">Property &amp; Loan</summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="text-xs">Purchase price ($) <input name="purchase_price" type="number" min="1" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Down payment ($) <input name="down_payment" type="number" min="0" value="0" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Loan amount ($) <input name="loan_amount" type="number" min="1" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Term (years) <input name="term_years" type="number" min="1" max="40" value="30" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Property type
+            <label class="text-xs">Purchase price ($) <span class="help" data-tip="Home sale price.">?</span> <input name="purchase_price" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Down payment ($) <span class="help" data-tip="Cash paid upfront.">?</span> <input name="down_payment" type="text" inputmode="numeric" data-format="money" value="0" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Loan amount ($) <span class="help" data-tip="Mortgage principal requested.">?</span> <input name="loan_amount" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Term (years) <span class="help" data-tip="Loan repayment duration. 30 most common.">?</span> <input name="term_years" type="number" min="1" max="40" value="30" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs">Property type <span class="help" data-tip="Single family, condo, townhouse, multi-family.">?</span>
               <select name="property_type" class="w-full mt-1 px-2 py-1 border rounded">
                 <option value="single_family">Single family</option><option value="condo">Condo</option><option value="townhouse">Townhouse</option><option value="multi_family">Multi-family</option>
               </select>
             </label>
-            <label class="text-xs">Occupancy
+            <label class="text-xs">Occupancy <span class="help" data-tip="Primary = live in. Secondary = vacation. Investment = rent out.">?</span>
               <select name="occupancy" class="w-full mt-1 px-2 py-1 border rounded">
                 <option value="primary">Primary</option><option value="secondary">Secondary</option><option value="investment">Investment</option>
               </select>
@@ -148,6 +148,7 @@
   </main>
 
   <script src="/graph.js"></script>
+  <script src="/format.js"></script>
   <script src="/app.js"></script>
 </body>
 </html>
