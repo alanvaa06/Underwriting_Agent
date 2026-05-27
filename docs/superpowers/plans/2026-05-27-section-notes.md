@@ -154,7 +154,7 @@ git commit -m "feat(schemas): optional notes (max 2000) on 5 sub-models"
 - Modify: `underwriter/tools.py`
 - Modify: `tests/test_tools.py`
 
-- [ ] **Step 1: Write the 3 failing tests**
+- [x] **Step 1: Write the 3 failing tests**
 
 Open `C:\Proyectos\Underwriter_Agent\tests\test_tools.py`. Append:
 
@@ -175,7 +175,7 @@ def test_sanitize_pii_passes_clean_notes_unchanged():
     assert out["employment"]["notes"] == msg
 ```
 
-- [ ] **Step 2: Run tests — verify fail**
+- [x] **Step 2: Run tests — verify fail**
 
 ```bash
 .venv\Scripts\python.exe -m pytest tests/test_tools.py::test_sanitize_pii_scrubs_ssn_in_nested_notes tests/test_tools.py::test_sanitize_pii_scrubs_email_in_nested_notes tests/test_tools.py::test_sanitize_pii_passes_clean_notes_unchanged -v
@@ -183,7 +183,7 @@ def test_sanitize_pii_passes_clean_notes_unchanged():
 
 Expected: 2 FAIL (SSN + email tests — current sanitizer doesn't recurse). Clean-passthrough test should PASS trivially since current sanitizer leaves nested dicts alone.
 
-- [ ] **Step 3: Extend sanitize_pii with deep scrub**
+- [x] **Step 3: Extend sanitize_pii with deep scrub**
 
 Open `C:\Proyectos\Underwriter_Agent\underwriter\tools.py`. Add these two compiled regexes and the helper at module level (after `_PII_DROP_KEYS`):
 
@@ -220,7 +220,7 @@ to:
     return _scrub_deep(out)
 ```
 
-- [ ] **Step 4: Run tests — verify pass + full suite green**
+- [x] **Step 4: Run tests — verify pass + full suite green**
 
 ```bash
 .venv\Scripts\python.exe -m pytest tests/test_tools.py -v
@@ -236,7 +236,7 @@ Expected: `65 passed`.
 
 **Watch for regression:** the existing `test_sanitize_pii_redacts_ssn_to_last_four` test passes a top-level `ssn` key. With deep-scrub now running AFTER the top-level scrub, the top-level value (already `XXX-XX-6789`) will be re-processed but the regex pattern `\d{3}-\d{2}-\d{4}` doesn't match `XXX-XX-6789` so it passes through unchanged. Same for the address handling: top-level scrubbed `"San Francisco, CA"` doesn't match any regex. Good — no double-scrub bug.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add underwriter/tools.py tests/test_tools.py

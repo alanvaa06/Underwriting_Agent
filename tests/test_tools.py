@@ -62,3 +62,19 @@ def test_sanitize_pii_does_not_mutate_input():
     sanitize_pii(applicant)
     assert applicant["ssn"] == "123-45-6789"
     assert applicant["name"] == "Sarah Johnson"
+
+
+def test_sanitize_pii_scrubs_ssn_in_nested_notes():
+    out = sanitize_pii({"credit_history": {"notes": "SSN was 999-88-7777 reported wrong."}})
+    assert out["credit_history"]["notes"] == "SSN was XXX-XX-7777 reported wrong."
+
+
+def test_sanitize_pii_scrubs_email_in_nested_notes():
+    out = sanitize_pii({"employment": {"notes": "HR contact: jane@example.com confirmed."}})
+    assert out["employment"]["notes"] == "HR contact: [email] confirmed."
+
+
+def test_sanitize_pii_passes_clean_notes_unchanged():
+    msg = "Promotion to Senior Engineer effective Jan 2025."
+    out = sanitize_pii({"employment": {"notes": msg}})
+    assert out["employment"]["notes"] == msg
