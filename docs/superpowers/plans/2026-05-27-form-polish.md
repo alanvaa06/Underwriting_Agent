@@ -418,7 +418,7 @@ git commit -m "feat(frontend): tooltips on every field + money inputs swap to te
 **Files:**
 - Modify: `docs/manual-test-plan.md`
 
-- [ ] **Step 1: Append three checks to the existing list**
+- [x] **Step 1: Append three checks to the existing list**
 
 Open `C:\Proyectos\Underwriter_Agent\docs\manual-test-plan.md`. Add these three items as new checkboxes after the existing 7 items (before any closing line):
 
@@ -428,7 +428,7 @@ Open `C:\Proyectos\Underwriter_Agent\docs\manual-test-plan.md`. Add these three 
 - [ ] Submit form with money fields filled — verify in DevTools Network tab that POST `/api/run` body contains integer values (e.g. `12500`), not string `"12,500"`
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add docs/manual-test-plan.md
