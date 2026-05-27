@@ -139,8 +139,9 @@ def test_notes_default_empty_string():
 
 
 def test_notes_rejects_over_2000_chars():
-    from app.schemas import CreditHistory
     from pydantic import ValidationError
+
+    from app.schemas import CreditHistory
     with pytest.raises(ValidationError):
         CreditHistory.model_validate({
             "bankruptcies": 0, "foreclosures": 0, "late_payments_12mo": 0,
