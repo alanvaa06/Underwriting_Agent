@@ -671,7 +671,7 @@ git commit -m "feat(frontend): 5 section-notes textareas with char counter"
 **Files:**
 - Modify: `docs/manual-test-plan.md`
 
-- [ ] **Step 1: Append 3 new checks**
+- [x] **Step 1: Append 3 new checks**
 
 Open `C:\Proyectos\Underwriter_Agent\docs\manual-test-plan.md`. Append these BEFORE any "If any box fails" footer line:
 
@@ -681,7 +681,7 @@ Open `C:\Proyectos\Underwriter_Agent\docs\manual-test-plan.md`. Append these BEF
 - [ ] Type `SSN 123-45-6789 and email test@example.com` into any notes box, submit, run with real key — Credit/Income/Asset/Collateral agent panel output should contain `XXX-XX-6789` and `[email]` (NOT the raw values)
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add docs/manual-test-plan.md
