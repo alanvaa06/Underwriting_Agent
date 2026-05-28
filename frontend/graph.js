@@ -65,6 +65,7 @@ ${stateLines}
   window.UnderwriterGraph = { render, reset, onEvent, setTheme };
 
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('graph-container').textContent = 'Waiting for run...';
+    const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'neutral';
+    setTheme(theme);
   });
 })();
