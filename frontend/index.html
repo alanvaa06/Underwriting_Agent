@@ -7,6 +7,7 @@
   <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen">
@@ -192,6 +193,10 @@
           <span class="text-sm">Risk: <span id="risk-score" class="font-mono font-bold"></span>/100</span>
         </div>
         <p id="decision-memo" class="text-sm text-slate-700"></p>
+        <button type="button" id="export-pdf-btn"
+                class="mt-3 px-3 py-1 text-xs bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded hover:bg-slate-300 dark:hover:bg-slate-600">
+          Download memo (PDF)
+        </button>
       </div>
 
       <div id="error-banner" class="hidden bg-red-50 border border-red-200 text-red-900 px-4 py-3 rounded text-sm"></div>
@@ -200,6 +205,7 @@
 
   <script src="/dark.js"></script>
   <script src="/graph.js"></script>
+  <script src="/pdf.js"></script>
   <script src="/format.js"></script>
   <script src="/app.js"></script>
 </body>

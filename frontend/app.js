@@ -13,6 +13,7 @@
   const errorBanner = document.getElementById('error-banner');
 
   const agentOutputs = {};
+  const currentState = { agent_outputs: agentOutputs, decision: null, risk_score: null, memo: null, cost: null };
   let abortController = null;
   let elapsedTimer = null;
   let startTime = null;
@@ -146,6 +147,10 @@
 
   function reset() {
     Object.keys(agentOutputs).forEach(k => delete agentOutputs[k]);
+    currentState.decision = null;
+    currentState.risk_score = null;
+    currentState.memo = null;
+    currentState.cost = null;
     decisionCard.classList.add('hidden');
     hideError();
     elapsedEl.textContent = '0.0s';
@@ -193,7 +198,12 @@
       agentOutputs[key] = evt.payload.output;
       renderTab();
     } else if (evt.type === 'decision') {
+      currentState.decision = evt.payload.decision;
+      currentState.risk_score = evt.payload.risk_score;
+      currentState.memo = evt.payload.memo;
       showDecision(evt.payload);
+    } else if (evt.type === 'cost') {
+      currentState.cost = evt.payload;
     } else if (evt.type === 'error') {
       const msg = (evt.payload.code || 'ERROR') + ': ' + (evt.payload.message || 'unknown');
       showError(msg);
@@ -250,6 +260,10 @@
 
   cancelBtn.addEventListener('click', () => {
     if (abortController) abortController.abort();
+  });
+
+  document.getElementById('export-pdf-btn')?.addEventListener('click', () => {
+    if (window.UnderwriterPDF) window.UnderwriterPDF.exportDecisionPDF(currentState);
   });
 
   // initial graph render
