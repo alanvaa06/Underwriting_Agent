@@ -16,13 +16,17 @@ _FENCE_RE = re.compile(r"^```(?:json)?\s*(.+?)\s*```$", re.DOTALL)
 
 
 def build_llm(*, api_key: str, model: str = "gpt-4o") -> BaseChatModel:
-    """Construct a per-request ChatOpenAI. Key never persisted past this call."""
-    return ChatOpenAI(api_key=api_key, model=model, temperature=0.1, timeout=60)  # type: ignore[arg-type]
+    """Construct a per-request streaming ChatOpenAI. Key never persisted past this call."""
+    return ChatOpenAI(  # type: ignore[arg-type]
+        api_key=api_key, model=model, temperature=0.1, timeout=60, streaming=True
+    )
 
 
-def invoke_agent(llm: BaseChatModel, *, system_prompt: str, user_prompt: str) -> dict[str, Any]:
-    """Invoke the LLM and parse its JSON response. Raises AgentParseError on bad JSON."""
-    msg = llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)])
+async def invoke_agent(
+    llm: BaseChatModel, *, system_prompt: str, user_prompt: str
+) -> tuple[dict[str, Any], dict[str, int]]:
+    """Invoke LLM async, return (parsed_json, usage). Raises AgentParseError on bad JSON."""
+    msg = await llm.ainvoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)])
     raw = msg.content if isinstance(msg.content, str) else str(msg.content)
     raw = raw.strip()
 
@@ -31,6 +35,13 @@ def invoke_agent(llm: BaseChatModel, *, system_prompt: str, user_prompt: str) ->
         raw = m.group(1).strip()
 
     try:
-        return json.loads(raw)
+        parsed = json.loads(raw)
     except json.JSONDecodeError as e:
         raise AgentParseError(f"Failed to parse JSON from LLM: {e}. Raw: {raw[:200]}") from e
+
+    raw_usage = getattr(msg, "usage_metadata", None) or {}
+    usage = {
+        "input_tokens": int(raw_usage.get("input_tokens", 0) or 0),
+        "output_tokens": int(raw_usage.get("output_tokens", 0) or 0),
+    }
+    return parsed, usage
