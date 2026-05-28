@@ -53,7 +53,16 @@ ${stateLines}
     }
   }
 
-  window.UnderwriterGraph = { render, reset, onEvent };
+  function setTheme(theme) {
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: theme === 'dark' ? 'dark' : 'neutral',
+      flowchart: { useMaxWidth: true },
+    });
+    render();
+  }
+
+  window.UnderwriterGraph = { render, reset, onEvent, setTheme };
 
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('graph-container').textContent = 'Waiting for run...';
