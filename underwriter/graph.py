@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Protocol
+from typing import Any, Callable, Protocol
 
 from langchain_core.language_models import BaseChatModel
 from langgraph.checkpoint.memory import MemorySaver
@@ -32,7 +32,6 @@ _ANALYSIS_KEYS = {
 
 
 def _initialize_node(state: UnderwritingState) -> dict:
-    """Sanitize PII into state.sanitized_data before any LLM call."""
     return {
         "sanitized_data": sanitize_pii(state["applicant_data"]),
         "reasoning_chain": ["[init] applicant data sanitized"],
@@ -40,12 +39,10 @@ def _initialize_node(state: UnderwritingState) -> dict:
 
 
 def _supervisor_node(_state: UnderwritingState) -> dict:
-    """No-op router node. All routing is conditional from supervisor — see _route_from_supervisor."""
     return {}
 
 
 def _route_from_supervisor(state: UnderwritingState) -> str:
-    """Pick next specialist; once all four ran, route to critic."""
     for s in _SPECIALISTS:
         if state.get(_ANALYSIS_KEYS[s]) is None:
             return s
@@ -56,26 +53,33 @@ def build_workflow(
     *,
     llm: BaseChatModel,
     retriever: _Retriever | None,
+    callback_factory: Callable[[str], Any] | None = None,
 ) -> Any:
-    """Compile the full underwriting graph with LLM + optional retriever injected."""
+    """Compile the underwriting graph. Optional callback_factory(agent_name) → AsyncCallbackHandler
+    is applied per-agent via llm.with_config(callbacks=[...]) for token streaming."""
 
-    def credit_node(s: UnderwritingState) -> dict:
-        return credit_analyst_node(s, llm=llm, retriever=retriever)
+    def with_cb(agent_name: str) -> BaseChatModel:
+        if callback_factory is None:
+            return llm
+        return llm.with_config(callbacks=[callback_factory(agent_name)])
 
-    def income_node(s: UnderwritingState) -> dict:
-        return income_analyst_node(s, llm=llm, retriever=retriever)
+    async def credit_node(s: UnderwritingState) -> dict:
+        return await credit_analyst_node(s, llm=with_cb("credit"), retriever=retriever)
 
-    def asset_node(s: UnderwritingState) -> dict:
-        return asset_analyst_node(s, llm=llm, retriever=retriever)
+    async def income_node(s: UnderwritingState) -> dict:
+        return await income_analyst_node(s, llm=with_cb("income"), retriever=retriever)
 
-    def collateral_node(s: UnderwritingState) -> dict:
-        return collateral_analyst_node(s, llm=llm, retriever=retriever)
+    async def asset_node(s: UnderwritingState) -> dict:
+        return await asset_analyst_node(s, llm=with_cb("asset"), retriever=retriever)
 
-    def critic_wrap(s: UnderwritingState) -> dict:
-        return critic_node(s, llm=llm)
+    async def collateral_node(s: UnderwritingState) -> dict:
+        return await collateral_analyst_node(s, llm=with_cb("collateral"), retriever=retriever)
 
-    def decision_wrap(s: UnderwritingState) -> dict:
-        return decision_node(s, llm=llm)
+    async def critic_wrap(s: UnderwritingState) -> dict:
+        return await critic_node(s, llm=with_cb("critic"))
+
+    async def decision_wrap(s: UnderwritingState) -> dict:
+        return await decision_node(s, llm=with_cb("decision"))
 
     workflow = StateGraph(UnderwritingState)
     workflow.add_node("initialize", _initialize_node)
@@ -92,13 +96,8 @@ def build_workflow(
     workflow.add_conditional_edges(
         "supervisor",
         _route_from_supervisor,
-        {
-            "credit": "credit",
-            "income": "income",
-            "asset": "asset",
-            "collateral": "collateral",
-            "critic": "critic",
-        },
+        {"credit": "credit", "income": "income", "asset": "asset",
+         "collateral": "collateral", "critic": "critic"},
     )
     workflow.add_edge("credit", "supervisor")
     workflow.add_edge("income", "supervisor")
