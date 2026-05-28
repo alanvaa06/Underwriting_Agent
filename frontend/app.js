@@ -134,8 +134,11 @@
     elapsedTimer = null;
   }
 
-  function showError(msg) {
-    errorBanner.textContent = msg;
+  function showError(codeOrMsg) {
+    const t = (window.UnderwriterI18n && window.UnderwriterI18n.t) || (k => k);
+    const key = 'error.' + codeOrMsg;
+    const translated = t(key);
+    errorBanner.textContent = translated !== key ? translated : codeOrMsg;
     errorBanner.classList.remove('hidden');
   }
   function hideError() {
@@ -252,8 +255,7 @@
       currentState.cost = evt.payload;
       showCost(evt.payload);
     } else if (evt.type === 'error') {
-      const msg = (evt.payload.code || 'ERROR') + ': ' + (evt.payload.message || 'unknown');
-      showError(msg);
+      showError(evt.payload.code || evt.payload.message || 'unknown');
     }
   }
 
@@ -267,7 +269,7 @@
     try {
       payload = buildPayload();
       if (!payload.api_key || !payload.api_key.startsWith('sk-')) {
-        showError('Enter a valid OpenAI API key (starts with sk-).');
+        showError('invalid_key');
         return;
       }
     } catch (err) {
@@ -294,9 +296,9 @@
       await consumeStream(r);
     } catch (err) {
       if (err.name === 'AbortError') {
-        showError('Cancelled.');
+        showError('cancelled');
       } else {
-        showError('Network error: ' + err.message);
+        showError('NETWORK');
       }
     } finally {
       setRunning(false);

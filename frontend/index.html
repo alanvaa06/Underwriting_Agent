@@ -15,20 +15,25 @@
     <div class="flex items-center gap-3">
       <span class="text-2xl">🏠</span>
       <div>
-        <h1 class="text-xl font-semibold">Underwriter Agent</h1>
-        <p class="text-xs text-slate-500 dark:text-slate-400">Multi-agent mortgage underwriting demo · LangGraph + GPT-4o</p>
+        <h1 class="text-xl font-semibold" data-i18n="header.title">Underwriter Agent</h1>
+        <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="header.tagline">Multi-agent mortgage underwriting demo · LangGraph + GPT-4o</p>
       </div>
     </div>
     <div class="flex items-center gap-4">
+      <div class="text-sm space-x-1">
+        <button type="button" data-lang-btn="en" class="hover:text-blue-600">EN</button>
+        <span class="text-slate-400">|</span>
+        <button type="button" data-lang-btn="es" class="hover:text-blue-600">ES</button>
+      </div>
       <button id="dark-toggle" type="button"
               class="text-xl leading-none cursor-pointer"
               title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
-      <a href="https://github.com/alanvaa06/Underwriting_Agent" class="text-sm text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white" target="_blank" rel="noopener">View on GitHub →</a>
+      <a href="https://github.com/alanvaa06/Underwriting_Agent" class="text-sm text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white" target="_blank" rel="noopener" data-i18n="header.github">View on GitHub →</a>
     </div>
   </header>
 
   <div class="bg-amber-50 dark:bg-amber-900/30 border-b border-amber-200 dark:border-amber-700 px-6 py-2 text-xs text-amber-900 dark:text-amber-200">
-    <strong>Demo only.</strong> Your OpenAI API key is sent per-request and never stored on the server. Synthetic test data only — do not enter real PII.
+    <strong>Demo only.</strong> <span data-i18n="banner.demo">Demo only. Your OpenAI API key is sent per-request and never stored on the server. Synthetic test data only — do not enter real PII.</span>
   </div>
 
   <main class="grid grid-cols-1 lg:grid-cols-5 gap-6 p-6 max-w-[1600px] mx-auto">
@@ -36,42 +41,42 @@
     <section class="lg:col-span-2 space-y-4">
       <form id="applicant-form" class="space-y-4" novalidate>
         <fieldset class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
-          <legend class="px-2 text-sm font-semibold text-slate-700 dark:text-slate-300">OpenAI API Key <span class="help" data-tip="Your sk-... key. Sent per-request, never stored.">?</span></legend>
-          <input type="password" name="api_key" required placeholder="sk-..."
+          <legend class="px-2 text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="fieldset.apikey">OpenAI API Key</span> <span class="help" data-tip="Your sk-... key. Sent per-request, never stored." data-i18n-tip="tip.apikey">?</span></legend>
+          <input type="password" name="api_key" required placeholder="sk-..." data-i18n-ph="ph.apikey"
                  class="w-full px-3 py-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Required. Used per-request, never stored.</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="apikey.hint">Required. Used per-request, never stored.</p>
         </fieldset>
 
         <details open class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
-          <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300">Borrower</summary>
+          <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="section.borrower">Borrower</span></summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="col-span-2 text-xs">Full name <span class="help" data-tip="Borrower's full legal name.">?</span> <input name="name" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">FICO score <span class="help" data-tip="Credit score, 300–850. Higher is better.">?</span> <input name="credit_score" type="number" min="300" max="850" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Oldest tradeline (yrs) <span class="help" data-tip="Years since oldest credit line opened.">?</span> <input name="oldest_tradeline_years" type="number" step="0.1" min="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Bankruptcies <span class="help" data-tip="Filings in last 7 years.">?</span> <input name="bankruptcies" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Foreclosures <span class="help" data-tip="Lost properties in last 7 years.">?</span> <input name="foreclosures" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Late payments (12mo) <span class="help" data-tip="Payments 30+ days late, last 12 months.">?</span> <input name="late_payments_12mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Late payments (24mo) <span class="help" data-tip="Payments 30+ days late, last 24 months.">?</span> <input name="late_payments_24mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="col-span-2 text-xs"><span data-i18n="field.name">Full name</span> <span class="help" data-tip="Borrower's full legal name." data-i18n-tip="tip.name">?</span> <input name="name" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.fico">FICO score</span> <span class="help" data-tip="Credit score, 300–850. Higher is better." data-i18n-tip="tip.fico">?</span> <input name="credit_score" type="number" min="300" max="850" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.oldest_tradeline">Oldest tradeline (yrs)</span> <span class="help" data-tip="Years since oldest credit line opened." data-i18n-tip="tip.oldest_tradeline">?</span> <input name="oldest_tradeline_years" type="number" step="0.1" min="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.bankruptcies">Bankruptcies</span> <span class="help" data-tip="Filings in last 7 years." data-i18n-tip="tip.bankruptcies">?</span> <input name="bankruptcies" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.foreclosures">Foreclosures</span> <span class="help" data-tip="Lost properties in last 7 years." data-i18n-tip="tip.foreclosures">?</span> <input name="foreclosures" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.late_12mo">Late payments (12mo)</span> <span class="help" data-tip="Payments 30+ days late, last 12 months." data-i18n-tip="tip.late_12mo">?</span> <input name="late_payments_12mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.late_24mo">Late payments (24mo)</span> <span class="help" data-tip="Payments 30+ days late, last 24 months." data-i18n-tip="tip.late_24mo">?</span> <input name="late_payments_24mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
           </div>
           <div class="mt-3">
             <label class="text-xs flex items-center justify-between">
-              <span>Notes <span class="help" data-tip="Free-text context for this section. The agent reads it alongside structured fields.">?</span></span>
+              <span><span data-i18n="field.notes">Notes</span> <span class="help" data-tip="Free-text context for this section. The agent reads it alongside structured fields." data-i18n-tip="tip.notes">?</span></span>
               <span class="text-slate-400 text-[10px]" data-counter="credit_notes">0 / 2000</span>
             </label>
             <textarea name="credit_notes" rows="3" maxlength="2000"
-                      placeholder="e.g., 'Late payment in March 2024 was due to a banking error, resolved.'"
+                      placeholder="e.g., 'Late payment in March 2024 was due to a banking error, resolved.'" data-i18n-ph="ph.credit_notes"
                       class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono"></textarea>
           </div>
         </details>
 
         <details class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
-          <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300">Employment</summary>
+          <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="section.employment">Employment</span></summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="col-span-2 text-xs">Employer <span class="help" data-tip="Current employer name.">?</span> <input name="employer" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="col-span-2 text-xs">Position <span class="help" data-tip="Current job title.">?</span> <input name="position" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Tenure (years) <span class="help" data-tip="Years at current employer.">?</span> <input name="years" type="number" step="0.1" min="0" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Monthly income ($) <span class="help" data-tip="Gross monthly income before tax.">?</span> <input name="monthly_income" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Type <span class="help" data-tip="W2 = salaried. 1099 = contractor.">?</span>
+            <label class="col-span-2 text-xs"><span data-i18n="field.employer">Employer</span> <span class="help" data-tip="Current employer name." data-i18n-tip="tip.employer">?</span> <input name="employer" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="col-span-2 text-xs"><span data-i18n="field.position">Position</span> <span class="help" data-tip="Current job title." data-i18n-tip="tip.position">?</span> <input name="position" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.years">Tenure (years)</span> <span class="help" data-tip="Years at current employer." data-i18n-tip="tip.years">?</span> <input name="years" type="number" step="0.1" min="0" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.monthly_income">Monthly income ($)</span> <span class="help" data-tip="Gross monthly income before tax." data-i18n-tip="tip.monthly_income">?</span> <input name="monthly_income" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.emp_type">Type</span> <span class="help" data-tip="W2 = salaried. 1099 = contractor." data-i18n-tip="tip.emp_type">?</span>
               <select name="emp_type" class="w-full mt-1 px-2 py-1 border rounded">
                 <option value="W2">W2</option><option value="1099">1099</option><option value="self_employed">Self-employed</option>
               </select>
@@ -79,127 +84,127 @@
           </div>
           <div class="mt-3">
             <label class="text-xs flex items-center justify-between">
-              <span>Notes <span class="help" data-tip="Free-text context for this section. The agent reads it alongside structured fields.">?</span></span>
+              <span><span data-i18n="field.notes">Notes</span> <span class="help" data-tip="Free-text context for this section. The agent reads it alongside structured fields." data-i18n-tip="tip.notes">?</span></span>
               <span class="text-slate-400 text-[10px]" data-counter="employment_notes">0 / 2000</span>
             </label>
             <textarea name="employment_notes" rows="3" maxlength="2000"
-                      placeholder="e.g., 'Promotion to Senior Engineer effective Jan 2025, salary increased 18%.'"
+                      placeholder="e.g., 'Promotion to Senior Engineer effective Jan 2025, salary increased 18%.'" data-i18n-ph="ph.employment_notes"
                       class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono"></textarea>
           </div>
         </details>
 
         <details class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
-          <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300">Debts (monthly)</summary>
+          <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="section.debts">Debts (monthly)</span></summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="text-xs">Car loan ($) <span class="help" data-tip="Monthly car payment.">?</span> <input name="car_loan" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Student loan ($) <span class="help" data-tip="Monthly student loan payment.">?</span> <input name="student_loan" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Credit cards ($) <span class="help" data-tip="Minimum monthly credit card payment.">?</span> <input name="credit_cards" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Other ($) <span class="help" data-tip="Other recurring monthly debt.">?</span> <input name="debt_other" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.car_loan">Car loan ($)</span> <span class="help" data-tip="Monthly car payment." data-i18n-tip="tip.car_loan">?</span> <input name="car_loan" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.student_loan">Student loan ($)</span> <span class="help" data-tip="Monthly student loan payment." data-i18n-tip="tip.student_loan">?</span> <input name="student_loan" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.credit_cards">Credit cards ($)</span> <span class="help" data-tip="Minimum monthly credit card payment." data-i18n-tip="tip.credit_cards">?</span> <input name="credit_cards" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.debt_other">Other ($)</span> <span class="help" data-tip="Other recurring monthly debt." data-i18n-tip="tip.debt_other">?</span> <input name="debt_other" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
           </div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Computed DTI: <span id="computed-dti" class="font-mono">—</span></p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2"><span data-i18n="compute.dti">Computed DTI:</span> <span id="computed-dti" class="font-mono">—</span></p>
           <div class="mt-3">
             <label class="text-xs flex items-center justify-between">
-              <span>Notes <span class="help" data-tip="Free-text context for this section. The agent reads it alongside structured fields.">?</span></span>
+              <span><span data-i18n="field.notes">Notes</span> <span class="help" data-tip="Free-text context for this section. The agent reads it alongside structured fields." data-i18n-tip="tip.notes">?</span></span>
               <span class="text-slate-400 text-[10px]" data-counter="debts_notes">0 / 2000</span>
             </label>
             <textarea name="debts_notes" rows="3" maxlength="2000"
-                      placeholder="e.g., 'Student loan in deferment until 2026; payment shown is post-deferment estimate.'"
+                      placeholder="e.g., 'Student loan in deferment until 2026; payment shown is post-deferment estimate.'" data-i18n-ph="ph.debts_notes"
                       class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono"></textarea>
           </div>
         </details>
 
         <details class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
-          <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300">Assets</summary>
+          <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="section.assets">Assets</span></summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="text-xs">Checking ($) <span class="help" data-tip="Checking account balance.">?</span> <input name="checking" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Savings ($) <span class="help" data-tip="Savings account balance.">?</span> <input name="savings" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Investments ($) <span class="help" data-tip="Brokerage / non-retirement holdings.">?</span> <input name="investments" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Retirement ($) <span class="help" data-tip="401k / IRA balance.">?</span> <input name="retirement" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.checking">Checking ($)</span> <span class="help" data-tip="Checking account balance." data-i18n-tip="tip.checking">?</span> <input name="checking" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.savings">Savings ($)</span> <span class="help" data-tip="Savings account balance." data-i18n-tip="tip.savings">?</span> <input name="savings" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.investments">Investments ($)</span> <span class="help" data-tip="Brokerage / non-retirement holdings." data-i18n-tip="tip.investments">?</span> <input name="investments" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.retirement">Retirement ($)</span> <span class="help" data-tip="401k / IRA balance." data-i18n-tip="tip.retirement">?</span> <input name="retirement" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
           </div>
           <div class="mt-3">
             <label class="text-xs flex items-center justify-between">
-              <span>Notes <span class="help" data-tip="Free-text context for this section. The agent reads it alongside structured fields.">?</span></span>
+              <span><span data-i18n="field.notes">Notes</span> <span class="help" data-tip="Free-text context for this section. The agent reads it alongside structured fields." data-i18n-tip="tip.notes">?</span></span>
               <span class="text-slate-400 text-[10px]" data-counter="assets_notes">0 / 2000</span>
             </label>
             <textarea name="assets_notes" rows="3" maxlength="2000"
-                      placeholder="e.g., 'Retirement balance includes vested employer match; vested as of 2024-12-31.'"
+                      placeholder="e.g., 'Retirement balance includes vested employer match; vested as of 2024-12-31.'" data-i18n-ph="ph.assets_notes"
                       class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono"></textarea>
           </div>
         </details>
 
         <details class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
-          <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300">Property &amp; Loan</summary>
+          <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="section.property">Property &amp; Loan</span></summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="text-xs">Purchase price ($) <span class="help" data-tip="Home sale price.">?</span> <input name="purchase_price" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Down payment ($) <span class="help" data-tip="Cash paid upfront.">?</span> <input name="down_payment" type="text" inputmode="numeric" data-format="money" value="0" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Loan amount ($) <span class="help" data-tip="Mortgage principal requested.">?</span> <input name="loan_amount" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Term (years) <span class="help" data-tip="Loan repayment duration. 30 most common.">?</span> <input name="term_years" type="number" min="1" max="40" value="30" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs">Property type <span class="help" data-tip="Single family, condo, townhouse, multi-family.">?</span>
+            <label class="text-xs"><span data-i18n="field.purchase_price">Purchase price ($)</span> <span class="help" data-tip="Home sale price." data-i18n-tip="tip.purchase_price">?</span> <input name="purchase_price" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.down_payment">Down payment ($)</span> <span class="help" data-tip="Cash paid upfront." data-i18n-tip="tip.down_payment">?</span> <input name="down_payment" type="text" inputmode="numeric" data-format="money" value="0" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.loan_amount">Loan amount ($)</span> <span class="help" data-tip="Mortgage principal requested." data-i18n-tip="tip.loan_amount">?</span> <input name="loan_amount" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.term_years">Term (years)</span> <span class="help" data-tip="Loan repayment duration. 30 most common." data-i18n-tip="tip.term_years">?</span> <input name="term_years" type="number" min="1" max="40" value="30" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.property_type">Property type</span> <span class="help" data-tip="Single family, condo, townhouse, multi-family." data-i18n-tip="tip.property_type">?</span>
               <select name="property_type" class="w-full mt-1 px-2 py-1 border rounded">
                 <option value="single_family">Single family</option><option value="condo">Condo</option><option value="townhouse">Townhouse</option><option value="multi_family">Multi-family</option>
               </select>
             </label>
-            <label class="text-xs">Occupancy <span class="help" data-tip="Primary = live in. Secondary = vacation. Investment = rent out.">?</span>
+            <label class="text-xs"><span data-i18n="field.occupancy">Occupancy</span> <span class="help" data-tip="Primary = live in. Secondary = vacation. Investment = rent out." data-i18n-tip="tip.occupancy">?</span>
               <select name="occupancy" class="w-full mt-1 px-2 py-1 border rounded">
                 <option value="primary">Primary</option><option value="secondary">Secondary</option><option value="investment">Investment</option>
               </select>
             </label>
           </div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Computed LTV: <span id="computed-ltv" class="font-mono">—</span></p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2"><span data-i18n="compute.ltv">Computed LTV:</span> <span id="computed-ltv" class="font-mono">—</span></p>
           <div class="mt-3">
             <label class="text-xs flex items-center justify-between">
-              <span>Notes <span class="help" data-tip="Free-text context for this section. The agent reads it alongside structured fields.">?</span></span>
+              <span><span data-i18n="field.notes">Notes</span> <span class="help" data-tip="Free-text context for this section. The agent reads it alongside structured fields." data-i18n-tip="tip.notes">?</span></span>
               <span class="text-slate-400 text-[10px]" data-counter="property_notes">0 / 2000</span>
             </label>
             <textarea name="property_notes" rows="3" maxlength="2000"
-                      placeholder="e.g., 'Appraisal pending; purchase price reflects accepted offer 2025-02-10.'"
+                      placeholder="e.g., 'Appraisal pending; purchase price reflects accepted offer 2025-02-10.'" data-i18n-ph="ph.property_notes"
                       class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono"></textarea>
           </div>
         </details>
 
-        <button type="submit" id="run-btn"
+        <button type="submit" id="run-btn" data-i18n="button.run"
                 class="w-full py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 disabled:bg-slate-400 disabled:cursor-not-allowed">
           Run Underwriting →
         </button>
-        <button type="button" id="cancel-btn" class="hidden w-full py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700">Cancel</button>
+        <button type="button" id="cancel-btn" data-i18n="button.cancel" class="hidden w-full py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700">Cancel</button>
       </form>
     </section>
 
     <!-- RIGHT: Live Run -->
     <section class="lg:col-span-3 space-y-4">
       <div class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
-        <h2 class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Agent Workflow</h2>
-        <div id="graph-container" class="min-h-[280px] flex items-center justify-center text-slate-400 dark:text-slate-500 text-sm">
+        <h2 class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3" data-i18n="panel.workflow">Agent Workflow</h2>
+        <div id="graph-container" class="min-h-[280px] flex items-center justify-center text-slate-400 dark:text-slate-500 text-sm" data-i18n="panel.waiting">
           Waiting for run...
         </div>
-        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Elapsed: <span id="elapsed" class="font-mono">0.0s</span></p>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2"><span data-i18n="panel.elapsed">Elapsed:</span> <span id="elapsed" class="font-mono">0.0s</span></p>
       </div>
 
       <div class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
-        <h2 class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Agent Outputs</h2>
+        <h2 class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3" data-i18n="panel.outputs">Agent Outputs</h2>
         <div id="tabs" class="flex gap-2 border-b border-slate-200 mb-3 text-xs">
-          <button data-tab="credit" class="tab-btn px-3 py-1 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600">Credit</button>
-          <button data-tab="income" class="tab-btn px-3 py-1 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600">Income</button>
-          <button data-tab="asset" class="tab-btn px-3 py-1 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600">Asset</button>
-          <button data-tab="collateral" class="tab-btn px-3 py-1 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600">Collateral</button>
-          <button data-tab="critic" class="tab-btn px-3 py-1 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600">Critic</button>
+          <button data-tab="credit" class="tab-btn px-3 py-1 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600" data-i18n="tab.credit">Credit</button>
+          <button data-tab="income" class="tab-btn px-3 py-1 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600" data-i18n="tab.income">Income</button>
+          <button data-tab="asset" class="tab-btn px-3 py-1 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600" data-i18n="tab.asset">Asset</button>
+          <button data-tab="collateral" class="tab-btn px-3 py-1 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600" data-i18n="tab.collateral">Collateral</button>
+          <button data-tab="critic" class="tab-btn px-3 py-1 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600" data-i18n="tab.critic">Critic</button>
         </div>
-        <pre id="tab-content" class="text-xs font-mono whitespace-pre-wrap bg-slate-50 dark:bg-slate-900 dark:text-slate-200 p-3 rounded min-h-[160px]">No output yet.</pre>
+        <pre id="tab-content" class="text-xs font-mono whitespace-pre-wrap bg-slate-50 dark:bg-slate-900 dark:text-slate-200 p-3 rounded min-h-[160px]" data-i18n="panel.no_output">No output yet.</pre>
       </div>
 
       <div id="decision-card" class="hidden bg-white rounded-lg border-2 p-6">
         <div class="flex items-center justify-between mb-3">
           <h2 id="decision-headline" class="text-2xl font-bold"></h2>
-          <span class="text-sm">Risk: <span id="risk-score" class="font-mono font-bold"></span>/100</span>
+          <span class="text-sm"><span data-i18n="risk.label">Risk:</span> <span id="risk-score" class="font-mono font-bold"></span>/100</span>
         </div>
         <p id="decision-memo" class="text-sm text-slate-700"></p>
         <div id="cost-breakdown" class="hidden mt-4 pt-3 border-t border-slate-200 dark:border-slate-700">
-          <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Cost breakdown</p>
+          <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2" data-i18n="cost.title">Cost breakdown</p>
           <table id="cost-table" class="w-full text-[11px] font-mono">
             <tbody></tbody>
           </table>
         </div>
-        <button type="button" id="export-pdf-btn"
+        <button type="button" id="export-pdf-btn" data-i18n="button.download_pdf"
                 class="mt-3 px-3 py-1 text-xs bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded hover:bg-slate-300 dark:hover:bg-slate-600">
           Download memo (PDF)
         </button>
@@ -213,6 +218,7 @@
   <script src="/graph.js"></script>
   <script src="/pdf.js"></script>
   <script src="/format.js"></script>
+  <script src="/i18n.js"></script>
   <script src="/app.js"></script>
 </body>
 </html>
