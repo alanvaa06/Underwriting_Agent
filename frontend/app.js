@@ -14,6 +14,7 @@
 
   const agentOutputs = {};
   const currentState = { agent_outputs: agentOutputs, decision: null, risk_score: null, memo: null, cost: null };
+  const tokenBuffer = {};
   let abortController = null;
   let elapsedTimer = null;
   let startTime = null;
@@ -105,7 +106,14 @@
   function renderTab() {
     tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === activeTab));
     const data = agentOutputs[activeTab];
-    tabContent.textContent = data ? JSON.stringify(data, null, 2) : 'No output yet.';
+    const tokens = tokenBuffer[activeTab];
+    if (data) {
+      tabContent.textContent = JSON.stringify(data, null, 2);
+    } else if (tokens) {
+      tabContent.textContent = tokens;
+    } else {
+      tabContent.textContent = 'No output yet.';
+    }
   }
   tabBtns.forEach(b => b.addEventListener('click', () => { activeTab = b.dataset.tab; renderTab(); }));
 
@@ -145,12 +153,43 @@
     decisionMemo.textContent = payload.memo ?? '';
   }
 
+  function showCost(payload) {
+    const card = document.getElementById('cost-breakdown');
+    const tbody = document.querySelector('#cost-table tbody');
+    if (!card || !tbody) return;
+    tbody.innerHTML = '';
+    const order = ['credit', 'income', 'asset', 'collateral', 'critic', 'decision'];
+    for (const name of order) {
+      const u = payload.per_agent[name];
+      if (!u) continue;
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="py-0.5 text-slate-600 dark:text-slate-400">${name}</td>
+        <td class="py-0.5 text-right">${u.input_tokens.toLocaleString()} in</td>
+        <td class="py-0.5 text-right">${u.output_tokens.toLocaleString()} out</td>
+        <td class="py-0.5 text-right">$${u.usd.toFixed(4)}</td>`;
+      tbody.appendChild(row);
+    }
+    const total = document.createElement('tr');
+    total.className = 'border-t border-slate-200 dark:border-slate-700 font-semibold';
+    total.innerHTML = `
+      <td class="pt-1 text-slate-700 dark:text-slate-200">Total</td>
+      <td class="pt-1 text-right">${(payload.total_tokens || 0).toLocaleString()} tokens</td>
+      <td></td>
+      <td class="pt-1 text-right">$${payload.total_usd.toFixed(4)}</td>`;
+    tbody.appendChild(total);
+    card.classList.remove('hidden');
+  }
+
   function reset() {
     Object.keys(agentOutputs).forEach(k => delete agentOutputs[k]);
     currentState.decision = null;
     currentState.risk_score = null;
     currentState.memo = null;
     currentState.cost = null;
+    Object.keys(tokenBuffer).forEach(k => delete tokenBuffer[k]);
+    const costCard = document.getElementById('cost-breakdown');
+    if (costCard) costCard.classList.add('hidden');
     decisionCard.classList.add('hidden');
     hideError();
     elapsedEl.textContent = '0.0s';
@@ -191,11 +230,18 @@
   }
 
   function handleEvent(evt) {
+    if (evt.type === 'token' && evt.payload.agent) {
+      const a = evt.payload.agent;
+      tokenBuffer[a] = (tokenBuffer[a] || '') + evt.payload.token;
+      if (activeTab === a) tabContent.textContent = tokenBuffer[a];
+      return;
+    }
     if (window.UnderwriterGraph) window.UnderwriterGraph.onEvent(evt);
     if (evt.type === 'agent_complete' && evt.payload.agent) {
       const a = evt.payload.agent;
       const key = a === 'critic' ? 'critic' : a;
       agentOutputs[key] = evt.payload.output;
+      delete tokenBuffer[key];
       renderTab();
     } else if (evt.type === 'decision') {
       currentState.decision = evt.payload.decision;
@@ -204,6 +250,7 @@
       showDecision(evt.payload);
     } else if (evt.type === 'cost') {
       currentState.cost = evt.payload;
+      showCost(evt.payload);
     } else if (evt.type === 'error') {
       const msg = (evt.payload.code || 'ERROR') + ': ' + (evt.payload.message || 'unknown');
       showError(msg);
