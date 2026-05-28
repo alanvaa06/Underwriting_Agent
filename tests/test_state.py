@@ -23,3 +23,26 @@ def test_init_state_populates_applicant_and_defaults():
     assert state["policy_violations"] == []
     assert state["reasoning_chain"] == []
     assert state["timestamp"]   # iso string
+
+
+def test_init_state_usage_defaults_to_empty_dict():
+    state = init_state(applicant_data={"name": "X"}, case_id="T")
+    assert state["usage"] == {}
+
+
+def test_merge_usage_combines_two_dicts():
+    from underwriter.state import _merge_usage
+    left = {"credit": {"input_tokens": 100, "output_tokens": 50}}
+    right = {"income": {"input_tokens": 200, "output_tokens": 80}}
+    out = _merge_usage(left, right)
+    assert out == {
+        "credit": {"input_tokens": 100, "output_tokens": 50},
+        "income": {"input_tokens": 200, "output_tokens": 80},
+    }
+
+
+def test_merge_usage_right_wins_on_key_collision():
+    from underwriter.state import _merge_usage
+    left = {"credit": {"input_tokens": 100, "output_tokens": 50}}
+    right = {"credit": {"input_tokens": 999, "output_tokens": 999}}
+    assert _merge_usage(left, right) == right

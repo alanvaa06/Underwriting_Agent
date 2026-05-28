@@ -5,6 +5,11 @@ from datetime import UTC, datetime
 from typing import Annotated, Any, TypedDict
 
 
+def _merge_usage(left: dict, right: dict) -> dict:
+    """LangGraph reducer: merge two usage dicts. Right wins on key collision."""
+    return {**left, **right}
+
+
 class UnderwritingState(TypedDict):
     case_id: str
     applicant_data: dict[str, Any]
@@ -30,6 +35,7 @@ class UnderwritingState(TypedDict):
     policy_violations: list[str]
 
     reasoning_chain: Annotated[list[str], operator.add]
+    usage: Annotated[dict[str, dict], _merge_usage]
     timestamp: str
 
 
@@ -54,5 +60,6 @@ def init_state(*, applicant_data: dict[str, Any], case_id: str) -> UnderwritingS
         bias_flags=[],
         policy_violations=[],
         reasoning_chain=[],
+        usage={},
         timestamp=datetime.now(UTC).isoformat(),
     )
