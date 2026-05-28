@@ -34,7 +34,7 @@ class _RecordingLLM:
 
         class _Msg:
             content = self.response
-            usage_metadata = {"input_tokens": 0, "output_tokens": 0}
+            usage_metadata = {"input_tokens": 0, "output_tokens": 0}  # noqa: RUF012
 
         return _Msg()
 

@@ -17,8 +17,12 @@ _FENCE_RE = re.compile(r"^```(?:json)?\s*(.+?)\s*```$", re.DOTALL)
 
 def build_llm(*, api_key: str, model: str = "gpt-4o") -> BaseChatModel:
     """Construct a per-request streaming ChatOpenAI. Key never persisted past this call."""
-    return ChatOpenAI(  # type: ignore[arg-type]
-        api_key=api_key, model=model, temperature=0.1, timeout=60, streaming=True
+    return ChatOpenAI(
+        api_key=api_key,  # type: ignore[arg-type]
+        model=model,
+        temperature=0.1,
+        timeout=60,
+        streaming=True,
     )
 
 

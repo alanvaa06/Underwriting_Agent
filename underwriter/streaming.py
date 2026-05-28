@@ -28,7 +28,7 @@ _SENTINEL: Any = object()
 
 def _make_token_callback(agent_name: str, queue: asyncio.Queue) -> AsyncCallbackHandler:
     class _Cb(AsyncCallbackHandler):
-        async def on_llm_new_token(self, token: str, **kwargs: Any) -> None:  # type: ignore[override]
+        async def on_llm_new_token(self, token: str, **kwargs: Any) -> None:
             await queue.put(AgentEvent(
                 type="token",
                 payload={"agent": agent_name, "token": token},

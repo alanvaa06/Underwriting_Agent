@@ -17,4 +17,10 @@ Run before every deploy to `main`. Tick each box in the PR description.
 - [ ] Try to paste 2500 chars into any notes textarea — browser-enforced `maxlength` caps it at 2000; submit succeeds with 2000-char string
 - [ ] Type `SSN 123-45-6789 and email test@example.com` into any notes box, submit, run with real key — Credit/Income/Asset/Collateral agent panel output should contain `XXX-XX-6789` and `[email]` (NOT the raw values)
 
+- [ ] Click 🌓 dark toggle — page colors flip, Mermaid graph re-renders in dark theme; reload preserves theme
+- [ ] Click ES toggle — all visible strings (labels, tooltips, placeholders, headlines, error messages) switch to Spanish; reload preserves language
+- [ ] After a successful run, click "Download memo (PDF)" — single-page A4 PDF downloads with decision banner, memo, per-agent summaries, cost footer
+- [ ] During a run, watch any agent tab — raw token text grows in real time, then settles to formatted JSON on agent_complete
+- [ ] After run completes, decision card shows "Cost breakdown" table with per-agent input/output tokens + USD + total
+
 If any box fails: do not merge. Fix and re-test.

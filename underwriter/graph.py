@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable, Protocol
+from collections.abc import Callable
+from typing import Any, Protocol
 
 from langchain_core.language_models import BaseChatModel
 from langgraph.checkpoint.memory import MemorySaver
@@ -58,7 +59,7 @@ def build_workflow(
     """Compile the underwriting graph. Optional callback_factory(agent_name) → AsyncCallbackHandler
     is applied per-agent via llm.with_config(callbacks=[...]) for token streaming."""
 
-    def with_cb(agent_name: str) -> BaseChatModel:
+    def with_cb(agent_name: str) -> Any:
         if callback_factory is None:
             return llm
         return llm.with_config(callbacks=[callback_factory(agent_name)])
