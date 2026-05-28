@@ -19,6 +19,9 @@ def client(monkeypatch: pytest.MonkeyPatch, fake_llm_responses: list[str]) -> Te
         "build_llm",
         lambda api_key, model: FakeListChatModel(responses=fake_llm_responses),
     )
+    # Reset rate limiter so test order / count never trips the per-IP cap
+    from app.ratelimit import RateLimiter
+    monkeypatch.setattr(run_module, "_limiter", RateLimiter(max_requests=10_000, window_seconds=60.0))
     with TestClient(app) as c:
         c.app.state.vector_store = None
         yield c

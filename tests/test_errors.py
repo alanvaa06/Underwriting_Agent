@@ -64,6 +64,8 @@ def _client_with_failing_stream(monkeypatch: pytest.MonkeyPatch, exc: Exception)
     monkeypatch.setattr(run_module, "stream_run", fake_stream_run)
     monkeypatch.setattr(run_module, "_retriever_from_state", lambda _: None)
     monkeypatch.setattr(run_module, "build_llm", lambda api_key, model: object())
+    from app.ratelimit import RateLimiter
+    monkeypatch.setattr(run_module, "_limiter", RateLimiter(max_requests=10_000, window_seconds=60.0))
     c = TestClient(app)
     c.app.state.vector_store = None
     return c

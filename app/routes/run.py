@@ -7,9 +7,10 @@ import logging
 import time
 from typing import Any
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
+from app.ratelimit import RateLimiter, client_key
 from app.schemas import AgentEvent, RunRequest
 from app.sse import format_event
 from underwriter.agents.base import build_llm
@@ -20,10 +21,18 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 _PING_INTERVAL_S = 10.0
+_limiter = RateLimiter(max_requests=5, window_seconds=60.0)
 
 
 @router.post("/run")
 async def run_underwriting(req: RunRequest, request: Request) -> StreamingResponse:
+    key = client_key(
+        x_forwarded_for=request.headers.get("x-forwarded-for"),
+        client_host=request.client.host if request.client else None,
+    )
+    if not _limiter.check(key):
+        raise HTTPException(status_code=429, detail="Rate limit: max 5 runs per minute. Wait and retry.")
+
     async def event_gen():
         retriever = _retriever_from_state(request.app.state)
 
