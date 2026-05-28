@@ -1,3 +1,4 @@
+import pytest
 from langchain_community.chat_models.fake import FakeListChatModel
 
 from underwriter.agents.critic import critic_node
@@ -15,10 +16,13 @@ def _state_with_analyses(applicant: dict) -> dict:
     return s
 
 
-def test_critic_node_returns_critic_review(strong_applicant_raw):
+@pytest.mark.asyncio
+async def test_critic_node_returns_critic_review(strong_applicant_raw):
     llm = FakeListChatModel(
         responses=['{"summary":"All four pillars aligned","concerns":[],"recommendation":"approve"}']
     )
-    delta = critic_node(_state_with_analyses(strong_applicant_raw), llm=llm)
+    delta = await critic_node(_state_with_analyses(strong_applicant_raw), llm=llm)
     assert "critic_review" in delta
     assert any("critic" in s.lower() for s in delta["reasoning_chain"])
+    assert "usage" in delta
+    assert "critic" in delta["usage"]

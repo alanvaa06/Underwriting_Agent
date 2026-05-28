@@ -19,7 +19,7 @@ Return STRICT JSON with EXACTLY these keys:
 """
 
 
-def decision_node(state: UnderwritingState, *, llm: BaseChatModel) -> dict:
+async def decision_node(state: UnderwritingState, *, llm: BaseChatModel) -> dict:
     user_prompt = (
         f"All inputs:\n\n"
         f"CREDIT: {state.get('credit_analysis') or 'N/A'}\n\n"
@@ -30,23 +30,23 @@ def decision_node(state: UnderwritingState, *, llm: BaseChatModel) -> dict:
         f"Return the JSON object now."
     )
 
-    result = invoke_agent(llm, system_prompt=SYSTEM_PROMPT, user_prompt=user_prompt)
+    parsed, usage = await invoke_agent(llm, system_prompt=SYSTEM_PROMPT, user_prompt=user_prompt)
 
-    decision = result.get("decision")
+    decision = parsed.get("decision")
     if decision not in _VALID_DECISIONS:
         raise AgentParseError(
             f"Decision agent returned invalid 'decision' value: {decision!r}. "
             f"Must be one of {sorted(_VALID_DECISIONS)}."
         )
 
-    risk_raw = result.get("risk_score", 50)
+    risk_raw = parsed.get("risk_score", 50)
     try:
         risk_score = int(risk_raw)
     except (TypeError, ValueError):
         risk_score = 50
     risk_score = max(0, min(100, risk_score))
 
-    memo = str(result.get("memo", ""))
+    memo = str(parsed.get("memo", ""))
 
     return {
         "final_decision": decision,
@@ -54,4 +54,5 @@ def decision_node(state: UnderwritingState, *, llm: BaseChatModel) -> dict:
         "decision_memo": memo,
         "analysis_complete": True,
         "reasoning_chain": [f"[decision] {decision} (risk={risk_score})"],
+        "usage": {"decision": usage},
     }

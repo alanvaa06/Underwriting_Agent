@@ -19,7 +19,7 @@ Return STRICT JSON with keys:
 """
 
 
-def critic_node(state: UnderwritingState, *, llm: BaseChatModel) -> dict:
+async def critic_node(state: UnderwritingState, *, llm: BaseChatModel) -> dict:
     user_prompt = (
         f"Specialist analyses:\n\n"
         f"CREDIT: {state.get('credit_analysis') or 'N/A'}\n\n"
@@ -29,10 +29,11 @@ def critic_node(state: UnderwritingState, *, llm: BaseChatModel) -> dict:
         f"Return the JSON object now."
     )
 
-    result = invoke_agent(llm, system_prompt=SYSTEM_PROMPT, user_prompt=user_prompt)
-    summary = result.get("summary", "")
+    parsed, usage = await invoke_agent(llm, system_prompt=SYSTEM_PROMPT, user_prompt=user_prompt)
+    summary = parsed.get("summary", "")
 
     return {
-        "critic_review": json.dumps(result),
+        "critic_review": json.dumps(parsed),
         "reasoning_chain": [f"[critic] {summary}"],
+        "usage": {"critic": usage},
     }

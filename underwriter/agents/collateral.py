@@ -25,7 +25,7 @@ Return STRICT JSON with keys:
 """
 
 
-def collateral_analyst_node(
+async def collateral_analyst_node(
     state: UnderwritingState,
     *,
     llm: BaseChatModel,
@@ -68,10 +68,11 @@ def collateral_analyst_node(
         f"{policy_context}\n\nReturn the JSON object now."
     )
 
-    result = invoke_agent(llm, system_prompt=SYSTEM_PROMPT, user_prompt=user_prompt)
-    summary = result.get("summary", "")
+    parsed, usage = await invoke_agent(llm, system_prompt=SYSTEM_PROMPT, user_prompt=user_prompt)
+    summary = parsed.get("summary", "")
 
     return {
-        "collateral_analysis": json.dumps(result),
+        "collateral_analysis": json.dumps(parsed),
         "reasoning_chain": [f"[collateral] {summary}"],
+        "usage": {"collateral": usage},
     }
