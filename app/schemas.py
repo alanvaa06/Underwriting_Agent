@@ -90,6 +90,8 @@ EventType = Literal[
     "error",
     "ping",
     "done",
+    "token",
+    "cost",
 ]
 
 
