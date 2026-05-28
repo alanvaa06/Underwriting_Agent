@@ -36,7 +36,12 @@ def test_cases_returns_bundled(client: TestClient):
     data = r.json()
     assert "cases" in data
     assert len(data["cases"]) >= 1
-    assert all("case_id" in c and "name" in c for c in data["cases"])
+    assert all("case_id" in c and "name" in c and "applicant" in c for c in data["cases"])
+    # applicant payload is ApplicantIn-shaped after server-side normalization
+    first = data["cases"][0]["applicant"]
+    assert "credit_history" in first
+    assert "property_info" in first
+    assert "loan_amount" in first["loan"]
 
 
 def _strong_payload() -> dict:
