@@ -17,6 +17,8 @@ pinned: false
 
 **Multi-agent mortgage underwriting demo.** Six LangGraph agents (Credit, Income, Asset, Collateral, Critic, Decision) collaborate over a synthetic applicant profile and render APPROVED / CONDITIONAL_APPROVAL / DENIED with a risk score and decision memo. Live SSE stream lights up the workflow as each agent thinks.
 
+![Underwriter Agent — full run demo](docs/demo.gif)
+
 ## Try It Live
 
 → **[huggingface.co/spaces/alanvaa06/underwriter-agent](https://huggingface.co/spaces/alanvaa06/underwriter-agent)**
