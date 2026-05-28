@@ -43,20 +43,20 @@
         <fieldset class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
           <legend class="px-2 text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="fieldset.apikey">OpenAI API Key</span> <span class="help" data-tip="Your sk-... key. Sent per-request, never stored." data-i18n-tip="tip.apikey">?</span></legend>
           <input type="password" name="api_key" required placeholder="sk-..." data-i18n-ph="ph.apikey"
-                 class="w-full px-3 py-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                 class="w-full px-3 py-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" />
           <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="apikey.hint">Required. Used per-request, never stored.</p>
         </fieldset>
 
         <details open class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
           <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="section.borrower">Borrower</span></summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="col-span-2 text-xs"><span data-i18n="field.name">Full name</span> <span class="help" data-tip="Borrower's full legal name." data-i18n-tip="tip.name">?</span> <input name="name" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.fico">FICO score</span> <span class="help" data-tip="Credit score, 300–850. Higher is better." data-i18n-tip="tip.fico">?</span> <input name="credit_score" type="number" min="300" max="850" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.oldest_tradeline">Oldest tradeline (yrs)</span> <span class="help" data-tip="Years since oldest credit line opened." data-i18n-tip="tip.oldest_tradeline">?</span> <input name="oldest_tradeline_years" type="number" step="0.1" min="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.bankruptcies">Bankruptcies</span> <span class="help" data-tip="Filings in last 7 years." data-i18n-tip="tip.bankruptcies">?</span> <input name="bankruptcies" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.foreclosures">Foreclosures</span> <span class="help" data-tip="Lost properties in last 7 years." data-i18n-tip="tip.foreclosures">?</span> <input name="foreclosures" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.late_12mo">Late payments (12mo)</span> <span class="help" data-tip="Payments 30+ days late, last 12 months." data-i18n-tip="tip.late_12mo">?</span> <input name="late_payments_12mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.late_24mo">Late payments (24mo)</span> <span class="help" data-tip="Payments 30+ days late, last 24 months." data-i18n-tip="tip.late_24mo">?</span> <input name="late_payments_24mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="col-span-2 text-xs"><span data-i18n="field.name">Full name</span> <span class="help" data-tip="Borrower's full legal name." data-i18n-tip="tip.name">?</span> <input name="name" required class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.fico">FICO score</span> <span class="help" data-tip="Credit score, 300–850. Higher is better." data-i18n-tip="tip.fico">?</span> <input name="credit_score" type="number" min="300" max="850" required class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.oldest_tradeline">Oldest tradeline (yrs)</span> <span class="help" data-tip="Years since oldest credit line opened." data-i18n-tip="tip.oldest_tradeline">?</span> <input name="oldest_tradeline_years" type="number" step="0.1" min="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.bankruptcies">Bankruptcies</span> <span class="help" data-tip="Filings in last 7 years." data-i18n-tip="tip.bankruptcies">?</span> <input name="bankruptcies" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.foreclosures">Foreclosures</span> <span class="help" data-tip="Lost properties in last 7 years." data-i18n-tip="tip.foreclosures">?</span> <input name="foreclosures" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.late_12mo">Late payments (12mo)</span> <span class="help" data-tip="Payments 30+ days late, last 12 months." data-i18n-tip="tip.late_12mo">?</span> <input name="late_payments_12mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.late_24mo">Late payments (24mo)</span> <span class="help" data-tip="Payments 30+ days late, last 24 months." data-i18n-tip="tip.late_24mo">?</span> <input name="late_payments_24mo" type="number" min="0" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
           </div>
           <div class="mt-3">
             <label class="text-xs flex items-center justify-between">
@@ -65,19 +65,19 @@
             </label>
             <textarea name="credit_notes" rows="3" maxlength="2000"
                       placeholder="e.g., 'Late payment in March 2024 was due to a banking error, resolved.'" data-i18n-ph="ph.credit_notes"
-                      class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono"></textarea>
+                      class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500"></textarea>
           </div>
         </details>
 
         <details class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
           <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="section.employment">Employment</span></summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="col-span-2 text-xs"><span data-i18n="field.employer">Employer</span> <span class="help" data-tip="Current employer name." data-i18n-tip="tip.employer">?</span> <input name="employer" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="col-span-2 text-xs"><span data-i18n="field.position">Position</span> <span class="help" data-tip="Current job title." data-i18n-tip="tip.position">?</span> <input name="position" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.years">Tenure (years)</span> <span class="help" data-tip="Years at current employer." data-i18n-tip="tip.years">?</span> <input name="years" type="number" step="0.1" min="0" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.monthly_income">Monthly income ($)</span> <span class="help" data-tip="Gross monthly income before tax." data-i18n-tip="tip.monthly_income">?</span> <input name="monthly_income" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="col-span-2 text-xs"><span data-i18n="field.employer">Employer</span> <span class="help" data-tip="Current employer name." data-i18n-tip="tip.employer">?</span> <input name="employer" required class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="col-span-2 text-xs"><span data-i18n="field.position">Position</span> <span class="help" data-tip="Current job title." data-i18n-tip="tip.position">?</span> <input name="position" required class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.years">Tenure (years)</span> <span class="help" data-tip="Years at current employer." data-i18n-tip="tip.years">?</span> <input name="years" type="number" step="0.1" min="0" required class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.monthly_income">Monthly income ($)</span> <span class="help" data-tip="Gross monthly income before tax." data-i18n-tip="tip.monthly_income">?</span> <input name="monthly_income" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
             <label class="text-xs"><span data-i18n="field.emp_type">Type</span> <span class="help" data-tip="W2 = salaried. 1099 = contractor." data-i18n-tip="tip.emp_type">?</span>
-              <select name="emp_type" class="w-full mt-1 px-2 py-1 border rounded">
+              <select name="emp_type" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500">
                 <option value="W2">W2</option><option value="1099">1099</option><option value="self_employed">Self-employed</option>
               </select>
             </label>
@@ -89,17 +89,17 @@
             </label>
             <textarea name="employment_notes" rows="3" maxlength="2000"
                       placeholder="e.g., 'Promotion to Senior Engineer effective Jan 2025, salary increased 18%.'" data-i18n-ph="ph.employment_notes"
-                      class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono"></textarea>
+                      class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500"></textarea>
           </div>
         </details>
 
         <details class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
           <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="section.debts">Debts (monthly)</span></summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="text-xs"><span data-i18n="field.car_loan">Car loan ($)</span> <span class="help" data-tip="Monthly car payment." data-i18n-tip="tip.car_loan">?</span> <input name="car_loan" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.student_loan">Student loan ($)</span> <span class="help" data-tip="Monthly student loan payment." data-i18n-tip="tip.student_loan">?</span> <input name="student_loan" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.credit_cards">Credit cards ($)</span> <span class="help" data-tip="Minimum monthly credit card payment." data-i18n-tip="tip.credit_cards">?</span> <input name="credit_cards" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.debt_other">Other ($)</span> <span class="help" data-tip="Other recurring monthly debt." data-i18n-tip="tip.debt_other">?</span> <input name="debt_other" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.car_loan">Car loan ($)</span> <span class="help" data-tip="Monthly car payment." data-i18n-tip="tip.car_loan">?</span> <input name="car_loan" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.student_loan">Student loan ($)</span> <span class="help" data-tip="Monthly student loan payment." data-i18n-tip="tip.student_loan">?</span> <input name="student_loan" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.credit_cards">Credit cards ($)</span> <span class="help" data-tip="Minimum monthly credit card payment." data-i18n-tip="tip.credit_cards">?</span> <input name="credit_cards" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.debt_other">Other ($)</span> <span class="help" data-tip="Other recurring monthly debt." data-i18n-tip="tip.debt_other">?</span> <input name="debt_other" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
           </div>
           <p class="text-xs text-slate-500 dark:text-slate-400 mt-2"><span data-i18n="compute.dti">Computed DTI:</span> <span id="computed-dti" class="font-mono">—</span></p>
           <div class="mt-3">
@@ -109,17 +109,17 @@
             </label>
             <textarea name="debts_notes" rows="3" maxlength="2000"
                       placeholder="e.g., 'Student loan in deferment until 2026; payment shown is post-deferment estimate.'" data-i18n-ph="ph.debts_notes"
-                      class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono"></textarea>
+                      class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500"></textarea>
           </div>
         </details>
 
         <details class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
           <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="section.assets">Assets</span></summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="text-xs"><span data-i18n="field.checking">Checking ($)</span> <span class="help" data-tip="Checking account balance." data-i18n-tip="tip.checking">?</span> <input name="checking" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.savings">Savings ($)</span> <span class="help" data-tip="Savings account balance." data-i18n-tip="tip.savings">?</span> <input name="savings" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.investments">Investments ($)</span> <span class="help" data-tip="Brokerage / non-retirement holdings." data-i18n-tip="tip.investments">?</span> <input name="investments" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.retirement">Retirement ($)</span> <span class="help" data-tip="401k / IRA balance." data-i18n-tip="tip.retirement">?</span> <input name="retirement" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.checking">Checking ($)</span> <span class="help" data-tip="Checking account balance." data-i18n-tip="tip.checking">?</span> <input name="checking" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.savings">Savings ($)</span> <span class="help" data-tip="Savings account balance." data-i18n-tip="tip.savings">?</span> <input name="savings" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.investments">Investments ($)</span> <span class="help" data-tip="Brokerage / non-retirement holdings." data-i18n-tip="tip.investments">?</span> <input name="investments" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.retirement">Retirement ($)</span> <span class="help" data-tip="401k / IRA balance." data-i18n-tip="tip.retirement">?</span> <input name="retirement" type="text" inputmode="numeric" data-format="money" value="0" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
           </div>
           <div class="mt-3">
             <label class="text-xs flex items-center justify-between">
@@ -128,24 +128,24 @@
             </label>
             <textarea name="assets_notes" rows="3" maxlength="2000"
                       placeholder="e.g., 'Retirement balance includes vested employer match; vested as of 2024-12-31.'" data-i18n-ph="ph.assets_notes"
-                      class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono"></textarea>
+                      class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500"></textarea>
           </div>
         </details>
 
         <details class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
           <summary class="cursor-pointer text-sm font-semibold text-slate-700 dark:text-slate-300"><span data-i18n="section.property">Property &amp; Loan</span></summary>
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <label class="text-xs"><span data-i18n="field.purchase_price">Purchase price ($)</span> <span class="help" data-tip="Home sale price." data-i18n-tip="tip.purchase_price">?</span> <input name="purchase_price" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.down_payment">Down payment ($)</span> <span class="help" data-tip="Cash paid upfront." data-i18n-tip="tip.down_payment">?</span> <input name="down_payment" type="text" inputmode="numeric" data-format="money" value="0" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.loan_amount">Loan amount ($)</span> <span class="help" data-tip="Mortgage principal requested." data-i18n-tip="tip.loan_amount">?</span> <input name="loan_amount" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
-            <label class="text-xs"><span data-i18n="field.term_years">Term (years)</span> <span class="help" data-tip="Loan repayment duration. 30 most common." data-i18n-tip="tip.term_years">?</span> <input name="term_years" type="number" min="1" max="40" value="30" required class="w-full mt-1 px-2 py-1 border rounded" /></label>
+            <label class="text-xs"><span data-i18n="field.purchase_price">Purchase price ($)</span> <span class="help" data-tip="Home sale price." data-i18n-tip="tip.purchase_price">?</span> <input name="purchase_price" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.down_payment">Down payment ($)</span> <span class="help" data-tip="Cash paid upfront." data-i18n-tip="tip.down_payment">?</span> <input name="down_payment" type="text" inputmode="numeric" data-format="money" value="0" required class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.loan_amount">Loan amount ($)</span> <span class="help" data-tip="Mortgage principal requested." data-i18n-tip="tip.loan_amount">?</span> <input name="loan_amount" type="text" inputmode="numeric" data-format="money" required class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
+            <label class="text-xs"><span data-i18n="field.term_years">Term (years)</span> <span class="help" data-tip="Loan repayment duration. 30 most common." data-i18n-tip="tip.term_years">?</span> <input name="term_years" type="number" min="1" max="40" value="30" required class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500" /></label>
             <label class="text-xs"><span data-i18n="field.property_type">Property type</span> <span class="help" data-tip="Single family, condo, townhouse, multi-family." data-i18n-tip="tip.property_type">?</span>
-              <select name="property_type" class="w-full mt-1 px-2 py-1 border rounded">
+              <select name="property_type" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500">
                 <option value="single_family">Single family</option><option value="condo">Condo</option><option value="townhouse">Townhouse</option><option value="multi_family">Multi-family</option>
               </select>
             </label>
             <label class="text-xs"><span data-i18n="field.occupancy">Occupancy</span> <span class="help" data-tip="Primary = live in. Secondary = vacation. Investment = rent out." data-i18n-tip="tip.occupancy">?</span>
-              <select name="occupancy" class="w-full mt-1 px-2 py-1 border rounded">
+              <select name="occupancy" class="w-full mt-1 px-2 py-1 border rounded dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500">
                 <option value="primary">Primary</option><option value="secondary">Secondary</option><option value="investment">Investment</option>
               </select>
             </label>
@@ -158,7 +158,7 @@
             </label>
             <textarea name="property_notes" rows="3" maxlength="2000"
                       placeholder="e.g., 'Appraisal pending; purchase price reflects accepted offer 2025-02-10.'" data-i18n-ph="ph.property_notes"
-                      class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono"></textarea>
+                      class="w-full mt-1 px-2 py-1 border rounded text-xs font-mono dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600 dark:placeholder-slate-500"></textarea>
           </div>
         </details>
 
