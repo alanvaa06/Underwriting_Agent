@@ -1,29 +1,50 @@
 /* Custom styles layered on top of Tailwind CDN. Used for graph animation + decision color states. */
 
 :root {
+  /* Clay — warm tinted neutrals (hue ~50°), low chroma. */
   --clay-50:  oklch(0.985 0.005 50);
   --clay-100: oklch(0.965 0.008 50);
   --clay-200: oklch(0.920 0.010 50);
   --clay-300: oklch(0.850 0.012 50);
   --clay-400: oklch(0.700 0.014 50);
   --clay-500: oklch(0.560 0.014 50);
+  --clay-600: oklch(0.450 0.014 50);
   --clay-700: oklch(0.360 0.014 50);
   --clay-800: oklch(0.250 0.012 50);
+  --clay-900: oklch(0.180 0.010 50);
 
+  /* Accent — terracotta (hue ~38°), brand voice. */
+  --accent-50:  oklch(0.970 0.025 35);
+  --accent-100: oklch(0.930 0.045 35);
+  --accent-400: oklch(0.680 0.150 38);
   --accent-500: oklch(0.620 0.160 38);
   --accent-600: oklch(0.550 0.180 35);
+  --accent-700: oklch(0.470 0.180 32);
+  --accent-900: oklch(0.300 0.130 30);
 
+  /* Moss — approved / success. */
   --moss-50:  oklch(0.960 0.025 145);
+  --moss-200: oklch(0.860 0.060 145);
   --moss-500: oklch(0.550 0.110 145);
+  --moss-600: oklch(0.460 0.100 145);
   --moss-700: oklch(0.380 0.090 145);
+  --moss-900: oklch(0.250 0.060 145);
 
+  /* Ochre — conditional / caution. */
   --ochre-50:  oklch(0.970 0.035 80);
+  --ochre-200: oklch(0.880 0.075 80);
   --ochre-500: oklch(0.740 0.140 75);
+  --ochre-600: oklch(0.620 0.140 70);
   --ochre-700: oklch(0.500 0.120 65);
+  --ochre-900: oklch(0.320 0.080 70);
 
+  /* Oxblood — denied / destructive. */
   --oxblood-50:  oklch(0.960 0.025 25);
+  --oxblood-200: oklch(0.870 0.060 25);
   --oxblood-500: oklch(0.520 0.160 25);
+  --oxblood-600: oklch(0.420 0.150 25);
   --oxblood-700: oklch(0.340 0.130 25);
+  --oxblood-900: oklch(0.220 0.080 25);
 }
 
 #graph-container svg {
