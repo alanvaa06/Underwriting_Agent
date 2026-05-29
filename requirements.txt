@@ -7,6 +7,6 @@ langchain==0.3.14
 langchain-openai==0.2.14
 langchain-community==0.3.14
 langchain-text-splitters==0.3.5
-chromadb==0.5.23
+chromadb==1.5.9
 pypdf==5.1.0
 sse-starlette==2.2.1
