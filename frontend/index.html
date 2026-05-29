@@ -18,13 +18,14 @@
   <meta name="twitter:title" content="Underwriter Agent — Multi-Agent Mortgage Demo" />
   <meta name="twitter:description" content="LangGraph + GPT-4o multi-agent mortgage underwriting. Live SSE stream over six specialist agents." />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/alanvaa06/Underwriting_Agent/main/docs/og-card.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    /* Hex approximations of an OKLCH palette. Tailwind Play CDN cannot parse oklch() literals
-       or var() strings inside its inline config, so the JIT engine needs hex/rgb. The same
-       OKLCH values are also mirrored as CSS custom properties in styles.css for any direct
-       CSS use (decision card surfaces, semantic state overrides). */
-    window.tailwind = window.tailwind || {};
-    window.tailwind.config = {
+    /* Tailwind Play CDN config MUST be set AFTER the CDN script loads — the CDN replaces
+       the global `tailwind` object on init, so a config set beforehand is discarded.
+       Hex approximations of an OKLCH palette (the CDN JIT cannot parse oklch() or var()
+       strings); the same OKLCH values are mirrored as CSS custom properties in styles.css
+       for direct CSS use (decision card surfaces, semantic state overrides). */
+    tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
@@ -79,7 +80,6 @@
       },
     };
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <link rel="stylesheet" href="/styles.css" />
