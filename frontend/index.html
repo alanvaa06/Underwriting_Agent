@@ -19,9 +19,10 @@
   <meta name="twitter:description" content="LangGraph + GPT-4o multi-agent mortgage underwriting. Live SSE stream over six specialist agents." />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/alanvaa06/Underwriting_Agent/main/docs/og-card.png" />
   <script>
-    /* OKLCH palette is defined in styles.css :root. Tailwind config maps utility classes
-       to those CSS variables, so `bg-accent-600` resolves to `background-color: var(--accent-600)`.
-       This avoids issues with the Play CDN parsing oklch() strings inside the JS config. */
+    /* Hex approximations of an OKLCH palette. Tailwind Play CDN cannot parse oklch() literals
+       or var() strings inside its inline config, so the JIT engine needs hex/rgb. The same
+       OKLCH values are also mirrored as CSS custom properties in styles.css for any direct
+       CSS use (decision card surfaces, semantic state overrides). */
     window.tailwind = window.tailwind || {};
     window.tailwind.config = {
       darkMode: 'class',
@@ -29,49 +30,49 @@
         extend: {
           colors: {
             clay: {
-              50:  'var(--clay-50)',
-              100: 'var(--clay-100)',
-              200: 'var(--clay-200)',
-              300: 'var(--clay-300)',
-              400: 'var(--clay-400)',
-              500: 'var(--clay-500)',
-              600: 'var(--clay-600)',
-              700: 'var(--clay-700)',
-              800: 'var(--clay-800)',
-              900: 'var(--clay-900)',
+              50:  '#faf8f4',
+              100: '#f1ece2',
+              200: '#e2d9c7',
+              300: '#cabea3',
+              400: '#a3947a',
+              500: '#7e7058',
+              600: '#605442',
+              700: '#473e31',
+              800: '#2f2920',
+              900: '#1f1b14',
             },
             accent: {
-              50:  'var(--accent-50)',
-              100: 'var(--accent-100)',
-              400: 'var(--accent-400)',
-              500: 'var(--accent-500)',
-              600: 'var(--accent-600)',
-              700: 'var(--accent-700)',
-              900: 'var(--accent-900)',
+              50:  '#fbeee5',
+              100: '#f4d7c0',
+              400: '#d36f3f',
+              500: '#bd5b2c',
+              600: '#a4491d',
+              700: '#8a3a14',
+              900: '#4d1f0a',
             },
             moss: {
-              50:  'var(--moss-50)',
-              200: 'var(--moss-200)',
-              500: 'var(--moss-500)',
-              600: 'var(--moss-600)',
-              700: 'var(--moss-700)',
-              900: 'var(--moss-900)',
+              50:  '#ebf2e8',
+              200: '#c5d9bb',
+              500: '#4e7d44',
+              600: '#3d6635',
+              700: '#314f29',
+              900: '#1c2f19',
             },
             ochre: {
-              50:  'var(--ochre-50)',
-              200: 'var(--ochre-200)',
-              500: 'var(--ochre-500)',
-              600: 'var(--ochre-600)',
-              700: 'var(--ochre-700)',
-              900: 'var(--ochre-900)',
+              50:  '#faefd5',
+              200: '#ebd198',
+              500: '#c68f34',
+              600: '#9f6e1d',
+              700: '#7a5214',
+              900: '#48300c',
             },
             oxblood: {
-              50:  'var(--oxblood-50)',
-              200: 'var(--oxblood-200)',
-              500: 'var(--oxblood-500)',
-              600: 'var(--oxblood-600)',
-              700: 'var(--oxblood-700)',
-              900: 'var(--oxblood-900)',
+              50:  '#f6e8e1',
+              200: '#dfb9a3',
+              500: '#a23a1d',
+              600: '#822c14',
+              700: '#65220e',
+              900: '#3b170a',
             },
           },
         },
