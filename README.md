@@ -13,7 +13,7 @@ pinned: false
 [![CI](https://github.com/alanvaa06/Underwriting_Agent/actions/workflows/test.yml/badge.svg)](https://github.com/alanvaa06/Underwriting_Agent/actions/workflows/test.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Open in HF Spaces](https://img.shields.io/badge/🤗%20Spaces-Try%20it%20live-blue)](https://huggingface.co/spaces/alanvaa06/underwriter-agent)
+[![Open in HF Spaces](https://img.shields.io/badge/🤗%20Spaces-Try%20it%20live-blue)](https://huggingface.co/spaces/alanvaa/underwriter-agent)
 
 **Multi-agent mortgage underwriting demo.** Six LangGraph agents (Credit, Income, Asset, Collateral, Critic, Decision) collaborate over a synthetic applicant profile and render APPROVED / CONDITIONAL_APPROVAL / DENIED with a risk score and decision memo. Live SSE stream lights up the workflow as each agent thinks.
 
@@ -21,7 +21,7 @@ pinned: false
 
 ## Try It Live
 
-→ **[huggingface.co/spaces/alanvaa06/underwriter-agent](https://huggingface.co/spaces/alanvaa06/underwriter-agent)**
+→ **[huggingface.co/spaces/alanvaa/underwriter-agent](https://huggingface.co/spaces/alanvaa/underwriter-agent)**
 
 Bring your own OpenAI key (used per-request, never stored). One full run ≈ $0.15.
 
