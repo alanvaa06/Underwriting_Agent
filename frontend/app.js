@@ -167,16 +167,16 @@
       if (!u) continue;
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td class="py-0.5 text-slate-600 dark:text-slate-400">${name}</td>
+        <td class="py-0.5 text-clay-600 dark:text-clay-400">${name}</td>
         <td class="py-0.5 text-right">${u.input_tokens.toLocaleString()} in</td>
         <td class="py-0.5 text-right">${u.output_tokens.toLocaleString()} out</td>
         <td class="py-0.5 text-right">$${u.usd.toFixed(4)}</td>`;
       tbody.appendChild(row);
     }
     const total = document.createElement('tr');
-    total.className = 'border-t border-slate-200 dark:border-slate-700 font-semibold';
+    total.className = 'border-t border-clay-200 dark:border-clay-700 font-semibold';
     total.innerHTML = `
-      <td class="pt-1 text-slate-700 dark:text-slate-200">Total</td>
+      <td class="pt-1 text-clay-700 dark:text-clay-200">Total</td>
       <td class="pt-1 text-right">${(payload.total_tokens || 0).toLocaleString()} tokens</td>
       <td></td>
       <td class="pt-1 text-right">$${payload.total_usd.toFixed(4)}</td>`;

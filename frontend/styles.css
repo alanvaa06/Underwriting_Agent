@@ -1,46 +1,95 @@
 /* Custom styles layered on top of Tailwind CDN. Used for graph animation + decision color states. */
 
+:root {
+  --clay-50:  oklch(0.985 0.005 50);
+  --clay-100: oklch(0.965 0.008 50);
+  --clay-200: oklch(0.920 0.010 50);
+  --clay-300: oklch(0.850 0.012 50);
+  --clay-400: oklch(0.700 0.014 50);
+  --clay-500: oklch(0.560 0.014 50);
+  --clay-700: oklch(0.360 0.014 50);
+  --clay-800: oklch(0.250 0.012 50);
+
+  --accent-500: oklch(0.620 0.160 38);
+  --accent-600: oklch(0.550 0.180 35);
+
+  --moss-50:  oklch(0.960 0.025 145);
+  --moss-500: oklch(0.550 0.110 145);
+  --moss-700: oklch(0.380 0.090 145);
+
+  --ochre-50:  oklch(0.970 0.035 80);
+  --ochre-500: oklch(0.740 0.140 75);
+  --ochre-700: oklch(0.500 0.120 65);
+
+  --oxblood-50:  oklch(0.960 0.025 25);
+  --oxblood-500: oklch(0.520 0.160 25);
+  --oxblood-700: oklch(0.340 0.130 25);
+}
+
 #graph-container svg {
   max-width: 100%;
   height: auto;
 }
 
 .tab-btn.active {
-  border-bottom-color: rgb(37, 99, 235); /* blue-600 */
-  color: rgb(37, 99, 235);
+  border-bottom-color: var(--accent-600);
+  color: var(--accent-600);
   font-weight: 600;
 }
 
+/* === Decision states (focal commitment) === */
 .decision-approved {
-  border-color: rgb(16, 185, 129); /* emerald-500 */
-  background-color: rgb(236, 253, 245); /* emerald-50 */
+  border-color: var(--moss-500);
+  background-color: var(--moss-50);
 }
 .decision-approved #decision-headline {
-  color: rgb(5, 122, 85);
+  color: var(--moss-700);
+  letter-spacing: -0.01em;
 }
 
 .decision-conditional {
-  border-color: rgb(245, 158, 11); /* amber-500 */
-  background-color: rgb(255, 251, 235); /* amber-50 */
+  border-color: var(--ochre-500);
+  background-color: var(--ochre-50);
 }
 .decision-conditional #decision-headline {
-  color: rgb(180, 83, 9);
+  color: var(--ochre-700);
+  letter-spacing: -0.01em;
 }
 
 .decision-denied {
-  border-color: rgb(239, 68, 68); /* red-500 */
-  background-color: rgb(254, 242, 242); /* red-50 */
+  border-color: var(--oxblood-500);
+  background-color: var(--oxblood-50);
 }
 .decision-denied #decision-headline {
-  color: rgb(185, 28, 28);
+  color: var(--oxblood-700);
+  letter-spacing: -0.01em;
 }
+
+/* Dark theme overrides for decision card surface — keep semantic hue, dim the surface. */
+.dark .decision-approved {
+  background-color: oklch(0.22 0.05 145);
+  border-color: oklch(0.50 0.11 145);
+}
+.dark .decision-approved #decision-headline { color: oklch(0.82 0.10 145); }
+
+.dark .decision-conditional {
+  background-color: oklch(0.24 0.06 75);
+  border-color: oklch(0.62 0.14 75);
+}
+.dark .decision-conditional #decision-headline { color: oklch(0.85 0.13 80); }
+
+.dark .decision-denied {
+  background-color: oklch(0.22 0.06 25);
+  border-color: oklch(0.50 0.14 25);
+}
+.dark .decision-denied #decision-headline { color: oklch(0.82 0.10 25); }
 
 @keyframes pulse-glow {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  50% { opacity: 0.55; }
 }
 .node-running rect {
-  animation: pulse-glow 1s ease-in-out infinite;
+  animation: pulse-glow 1.1s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 /* === Form tooltips === */
@@ -52,16 +101,17 @@
   height: 14px;
   margin-left: 4px;
   border-radius: 50%;
-  background: rgb(148, 163, 184); /* slate-400 */
+  background: var(--clay-400);
   color: white;
   font-size: 10px;
   font-weight: 600;
   cursor: help;
   position: relative;
   vertical-align: middle;
+  transition: background-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .help:hover {
-  background: rgb(37, 99, 235); /* blue-600 */
+  background: var(--accent-600);
 }
 .help:hover::after {
   content: attr(data-tip);
@@ -71,7 +121,7 @@
   transform: translateX(-50%);
   width: 200px;
   padding: 8px 10px;
-  background: rgb(30, 41, 59); /* slate-800 */
+  background: var(--clay-800);
   color: white;
   font-size: 11px;
   font-weight: 400;
@@ -81,7 +131,7 @@
   white-space: normal;
   z-index: 50;
   pointer-events: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 16px oklch(0 0 0 / 0.18);
 }
 .help:hover::before {
   content: '';
@@ -90,6 +140,6 @@
   left: 50%;
   transform: translateX(-50%);
   border: 6px solid transparent;
-  border-top-color: rgb(30, 41, 59);
+  border-top-color: var(--clay-800);
   z-index: 51;
 }

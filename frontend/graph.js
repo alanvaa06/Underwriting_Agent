@@ -16,10 +16,10 @@ flowchart TD
   sup --> asset[Asset] --> sup
   sup --> collateral[Collateral] --> sup
   sup --> critic[Critic] --> decision[Decision] --> done([Done])
-  classDef pending fill:#e5e7eb,stroke:#9ca3af,color:#374151
-  classDef running fill:#fef3c7,stroke:#f59e0b,stroke-width:3px,color:#92400e
-  classDef done    fill:#d1fae5,stroke:#10b981,color:#065f46
-  classDef error   fill:#fee2e2,stroke:#ef4444,color:#991b1b
+  classDef pending fill:#ece6df,stroke:#a89c8d,color:#3a342d
+  classDef running fill:#f7e2c5,stroke:#c9802b,stroke-width:3px,color:#5a3308
+  classDef done    fill:#d6e6cb,stroke:#5c8849,color:#2b4220
+  classDef error   fill:#ecd2c8,stroke:#9a3a26,color:#4c1810
 ${stateLines}
 `;
   }

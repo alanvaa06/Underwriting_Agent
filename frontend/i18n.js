@@ -233,7 +233,7 @@
     localStorage.setItem('uw-lang', current);
     document.querySelectorAll('[data-lang-btn]').forEach(btn => {
       btn.classList.toggle('font-bold', btn.dataset.langBtn === current);
-      btn.classList.toggle('text-blue-600', btn.dataset.langBtn === current);
+      btn.classList.toggle('text-accent-600', btn.dataset.langBtn === current);
     });
   }
 
