@@ -57,10 +57,9 @@ async def run_underwriting(req: RunRequest, request: Request) -> StreamingRespon
             yield format_event(_error_event(exc.code, str(exc), exc.recoverable))
         except asyncio.CancelledError:
             raise
-        except Exception as exc:
+        except Exception:
             logger.exception("internal error in run stream")
             yield format_event(_error_event("INTERNAL", "Unexpected error", False))
-            _ = exc  # avoid linter complaint; details only go to stderr
 
     return StreamingResponse(
         event_gen(),
